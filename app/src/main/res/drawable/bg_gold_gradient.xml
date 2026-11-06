@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Latar belakang gradien emas: gelap di atas, cerah di bawah -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:centerColor="@color/gold_500"
+        android:endColor="@color/gold_300"
+        android:startColor="@color/gold_800"
+        android:type="linear" />
+</shape>

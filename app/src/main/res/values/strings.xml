@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">Waktu Solat DZ</string>
+
+    <!-- Header -->
+    <string name="header_title">Waktu Solat DZ</string>
+    <string name="header_subtitle">Algeria • 4 Rabiulakhir 1448H</string>
+
+    <!-- Kad solat seterusnya -->
+    <string name="label_next_prayer">SOLAT SETERUSNYA</string>
+    <string name="countdown_sample">1 jam 12 minit lagi</string>
+    <string name="label_imsak">Imsak</string>
+    <string name="label_syuruk">Syuruk</string>
+    <string name="label_dhuha">Dhuha</string>
+
+    <!-- Jadual -->
+    <string name="label_schedule">Jadual Waktu Solat Hari Ini</string>
+    <string name="prayer_fajr">Subuh</string>
+    <string name="prayer_dhuhr">Zohor</string>
+    <string name="prayer_asr">Asar</string>
+    <string name="prayer_maghrib">Maghrib</string>
+    <string name="prayer_isha">Isyak</string>
+
+    <!-- Quote -->
+    <string name="quote_arabic">إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَّوْقُوتًا</string>
+    <string name="quote_translation">Sesungguhnya solat itu kewajipan yang ditetapkan waktunya ke atas orang-orang beriman.</string>
+
+    <!-- Menu bawah -->
+    <string name="nav_home">Utama</string>
+    <string name="nav_prayer_time">Waktu Solat</string>
+    <string name="nav_settings">Tetapan</string>
+
+    <!-- Footer & aksesibiliti -->
+    <string name="footer_note">Waktu solat Algeria • Dikemas kini hari ini</string>
+    <string name="cd_crescent">Ikon bulan sabit</string>
+    <string name="cd_mosque">Ikon masjid</string>
+    <string name="cd_location">Ikon lokasi</string>
+
+    <!-- Widget 4x2 -->
+    <string name="widget_title">WAKTU SOLAT</string>
+    <string name="widget_next_label">SOLAT SETERUSNYA</string>
+    <string name="widget_dates_sample">6 Rabiulakhir 1448H · 17 Oktober 2026</string>
+    <string name="widget_description">Waktu solat hari ini mengikut zon JAKIM.</string>
+    <string name="widget_zone_sample">WLY01 · Wilayah Persekutuan</string>
+    <string name="widget_next_sample">Maghrib · 19:01</string>
+    <string name="widget_temp_sample">31°C</string>
+    <string name="cd_weather">Ikon cuaca</string>
+    <string name="widget_time_sample_fajr">05:50</string>
+    <string name="widget_time_sample_dhuhr">13:01</string>
+    <string name="widget_time_sample_asr">16:18</string>
+    <string name="widget_time_sample_maghrib">19:01</string>
+    <string name="widget_time_sample_isha">20:11</string>
+    <string name="widget_loading">Memuatkan waktu solat…</string>
+</resources>

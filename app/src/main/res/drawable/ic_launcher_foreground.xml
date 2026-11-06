@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bulan sabit + bintang, warna krim di atas latar emas. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#FFFFFDF5"
+        android:pathData="M43.06,33.13 A22,22 0 1 0 68.64,63.49 A20,20 0 0 1 43.06,33.13 Z" />
+    <path
+        android:fillColor="#FFFFFDF5"
+        android:pathData="M52,43.5 L54,48.75 L59.61,49.03 L55.23,52.55 L56.7,57.97 L52,54.9 L47.3,57.97 L48.77,52.55 L44.39,49.03 L50,48.75 Z" />
+</vector>
