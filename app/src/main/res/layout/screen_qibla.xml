@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Screen layout and visible labels are kept together for editing. -->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@drawable/bg_qibla"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="56dp"
+    android:paddingBottom="24dp"
+    android:clipToPadding="false">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            style="@style/HomeHeading"
+            android:textSize="22sp"
+            android:layout_gravity="center_horizontal"
+            android:text="Arah Kiblat" />
+        <TextView
+            style="@style/HomeMuted"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:id="@+id/location"
+            android:text="Kuala Lumpur, Putrajaya" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_home_card"
+            android:padding="20dp"
+            android:layout_marginTop="16dp">
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/compass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_height="300dp" />
+            <TextView
+                style="@style/HomeHeading"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_marginTop="18dp"
+                tools:text="Kiblat 292° dari Utara"
+                android:id="@+id/bearing"
+                android:text="Kiblat 292° dari Utara" />
+            <TextView
+                style="@style/HomeMuted"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
+                tools:text="Arah kompas 90°"
+                android:id="@+id/reading"
+                android:text="Arah kompas 90°" />
+            <TextView
+                style="@style/HomeLabel"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/zone"
+                android:text="WLY01" />
+        </LinearLayout>
+        <TextView
+            style="@style/HomeMuted"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            android:text="Kalau jarum tidak stabil, gerakkan telefon membentuk angka 8 untuk kalibrasi." />
+    </LinearLayout>
+</ScrollView>

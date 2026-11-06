@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="HomeText" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/home_ink</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="HomeLabel" parent="HomeText">
+        <item name="android:textColor">@color/home_purple</item>
+        <item name="android:textSize">9sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.10</item>
+    </style>
+    <style name="HomeHeading" parent="HomeText">
+        <item name="android:textSize">19sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="HomeMuted" parent="HomeText">
+        <item name="android:textColor">@color/home_muted</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+    <style name="HomeCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_home_card</item>
+        <item name="android:padding">16dp</item>
+    </style>
+    <style name="HomeSection">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">22dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+</resources>

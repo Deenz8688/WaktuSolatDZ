@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Screen layout and visible labels are kept together for editing. -->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@drawable/bg_settings"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="56dp"
+    android:paddingBottom="24dp"
+    android:clipToPadding="false">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            style="@style/HomeHeading"
+            android:textSize="22sp"
+            android:text="Tetapan" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_home_card"
+            android:padding="20dp"
+            android:layout_marginTop="16dp">
+            <TextView
+                style="@style/HomeLabel"
+                android:text="ZON WAKTU SOLAT" />
+            <TextView
+                style="@style/HomeHeading"
+                android:layout_marginTop="8dp"
+                android:id="@+id/current_state"
+                android:text="Wilayah Persekutuan" />
+            <TextView
+                style="@style/HomeText"
+                android:layout_marginTop="5dp"
+                android:id="@+id/current_district"
+                android:text="Kuala Lumpur, Putrajaya · WLY01" />
+            <TextView
+                style="@style/HomeMuted"
+                android:layout_marginTop="8dp"
+                android:id="@+id/data_status"
+                android:text="Data waktu solat terkini" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_home_card"
+            android:padding="20dp"
+            android:layout_marginTop="16dp">
+            <TextView
+                style="@style/HomeHeading"
+                android:textSize="16sp"
+                android:text="Lokasi Automatik" />
+            <TextView
+                style="@style/HomeMuted"
+                android:layout_marginTop="6dp"
+                android:text="Kesan zon waktu solat berdasarkan lokasi peranti." />
+            <Button
+                android:id="@+id/detect_location"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="Kesan Kawasan Saya"
+                android:textAllCaps="false"
+                android:textColor="@color/home_purple" />
+            <TextView
+                style="@style/HomeMuted"
+                android:id="@+id/location_status"
+                android:text="Pilih lokasi automatik atau zon manual." />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_home_card"
+            android:padding="20dp"
+            android:layout_marginTop="16dp">
+            <TextView
+                style="@style/HomeHeading"
+                android:textSize="16sp"
+                android:text="Pilih Zon" />
+            <TextView
+                style="@style/HomeLabel"
+                android:layout_marginTop="12dp"
+                android:text="NEGERI" />
+            <Spinner
+                android:id="@+id/state_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:prompt="@string/xml_select_state" />
+            <TextView
+                style="@style/HomeLabel"
+                android:layout_marginTop="12dp"
+                android:text="DAERAH / KAWASAN" />
+            <Spinner
+                android:id="@+id/zone_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:prompt="@string/xml_select_zone" />
+            <Button
+                android:id="@+id/apply_zone"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="Gunakan zon ini"
+                android:textAllCaps="false"
+                android:textColor="@color/home_purple" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_home_card"
+            android:padding="20dp"
+            android:layout_marginTop="16dp">
+            <TextView
+                style="@style/HomeHeading"
+                android:textSize="16sp"
+                android:text="Notifikasi" />
+            <TextView
+                style="@style/HomeMuted"
+                android:layout_marginTop="6dp"
+                android:text="Peringatan solat harian mengikut zon yang dipilih." />
+            <Switch
+                android:id="@+id/notifications_enabled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="Aktifkan notifikasi"
+                android:textColor="@color/home_ink"
+                android:textSize="12sp"
+                android:thumbTint="@color/xml_switch_thumb"
+                android:trackTint="@color/xml_switch_track"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/notification_options">
+                <Switch
+                    android:id="@+id/reminder_before"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:text="Peringatan 5 minit sebelum"
+                    android:textColor="@color/home_ink"
+                    android:textSize="12sp"
+                    android:thumbTint="@color/xml_switch_thumb"
+                    android:trackTint="@color/xml_switch_track"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
+                <Switch
+                    android:id="@+id/notify_on_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:text="Masuk waktu solat"
+                    android:textColor="@color/home_ink"
+                    android:textSize="12sp"
+                    android:thumbTint="@color/xml_switch_thumb"
+                    android:trackTint="@color/xml_switch_track"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
+                <TextView
+                    style="@style/HomeLabel"
+                    android:layout_marginTop="12dp"
+                    android:text="WAKTU NOTIFIKASI" />
+                <Switch
+                    android:id="@+id/slot_imsak"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:text="Imsak"
+                    android:textColor="@color/home_ink"
+                    android:textSize="12sp"
+                    android:thumbTint="@color/xml_switch_thumb"
+                    android:trackTint="@color/xml_switch_track"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
+                <Switch
+                    android:id="@+id/slot_subuh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:text="Subuh"
+                    android:textColor="@color/home_ink"
+                    android:textSize="12sp"
+                    android:thumbTint="@color/xml_switch_thumb"
+                    android:trackTint="@color/xml_switch_track"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
+                <Switch
+                    android:id="@+id/slot_syuruk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:text="Syuruk"
+                    android:textColor="@color/home_ink"
+                    android:textSize="12sp"
+                    android:thumbTint="@color/xml_switch_thumb"
+                    android:trackTint="@color/xml_switch_track"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
+                <Switch
+                    android:id="@+id/slot_dhuha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:text="Dhuha"
+                    android:textColor="@color/home_ink"
+                    android:textSize="12sp"
+                    android:thumbTint="@color/xml_switch_thumb"
+                    android:trackTint="@color/xml_switch_track"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
+                <Switch
+                    android:id="@+id/slot_zohor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:text="Zohor"
+                    android:textColor="@color/home_ink"
+                    android:textSize="12sp"
+                    android:thumbTint="@color/xml_switch_thumb"
+                    android:trackTint="@color/xml_switch_track"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
+                <Switch
+                    android:id="@+id/slot_asar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:text="Asar"
+                    android:textColor="@color/home_ink"
+                    android:textSize="12sp"
+                    android:thumbTint="@color/xml_switch_thumb"
+                    android:trackTint="@color/xml_switch_track"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
+                <Switch
+                    android:id="@+id/slot_maghrib"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:text="Maghrib"
+                    android:textColor="@color/home_ink"
+                    android:textSize="12sp"
+                    android:thumbTint="@color/xml_switch_thumb"
+                    android:trackTint="@color/xml_switch_track"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
+                <Switch
+                    android:id="@+id/slot_isyak"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:text="Isyak"
+                    android:textColor="@color/home_ink"
+                    android:textSize="12sp"
+                    android:thumbTint="@color/xml_switch_thumb"
+                    android:trackTint="@color/xml_switch_track"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/exact_alarm_panel"
+                    android:layout_marginTop="12dp">
+                    <TextView
+                        style="@style/HomeMuted"
+                        android:text='Notifikasi boleh lewat selagi "Alarm &amp; peringatan" belum dibenarkan. Benarkan untuk peringatan 5 minit dan masuk waktu yang tepat.' />
+                    <Button
+                        android:id="@+id/allow_exact_alarm"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:text="Benarkan Alarm &amp; peringatan"
+                        android:textAllCaps="false"
+                        android:textColor="@color/home_purple" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/battery_panel"
+                    android:layout_marginTop="12dp">
+                    <TextView
+                        style="@style/HomeMuted"
+                        android:text="Benarkan app berjalan di latar belakang supaya notifikasi boleh diterima semasa telefon tidak digunakan." />
+                    <Button
+                        android:id="@+id/allow_battery"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:text="Tetapan bateri"
+                        android:textAllCaps="false"
+                        android:textColor="@color/home_purple" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            style="@style/HomeMuted"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="Zon yang dipilih akan disimpan pada peranti ini." />
+        <TextView
+            style="@style/HomeMuted"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Powered by Deenz Studios" />
+    </LinearLayout>
+</ScrollView>

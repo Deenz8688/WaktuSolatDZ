@@ -1,0 +1,6 @@
+<resources>
+    <string name="xml_select_state">Pilih negeri</string>
+    <string name="xml_select_zone">Pilih daerah atau kawasan</string>
+    <string name="xml_bearing">Kiblat %1$d° dari Utara</string>
+    <string name="xml_compass_reading">Arah kompas %1$d°</string>
+</resources>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Screen layout and visible labels are kept together for editing. -->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@drawable/bg_mosque"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="56dp"
+    android:paddingBottom="24dp"
+    android:clipToPadding="false">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            style="@style/HomeHeading"
+            android:textSize="22sp"
+            android:text="Masjid &amp; Surau" />
+        <TextView
+            style="@style/HomeMuted"
+            android:layout_marginTop="6dp"
+            android:id="@+id/location"
+            android:text="Kuala Lumpur, Putrajaya" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_home_card"
+            android:padding="20dp"
+            android:layout_marginTop="16dp">
+            <TextView
+                style="@style/HomeHeading"
+                android:textSize="16sp"
+                android:text="Peta Masjid Terdekat" />
+            <com.deenzstudios.waktusolatdz.ui.MapTouchContainer
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginTop="12dp">
+                <androidx.compose.ui.platform.ComposeView
+                    android:id="@+id/map"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </com.deenzstudios.waktusolatdz.ui.MapTouchContainer>
+            <TextView
+                style="@style/HomeMuted"
+                android:layout_marginTop="10dp"
+                android:id="@+id/origin"
+                android:text="Menggunakan lokasi peranti" />
+            <Button
+                android:id="@+id/my_location"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="Lokasi saya"
+                android:textAllCaps="false"
+                android:textColor="@color/home_purple" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_home_card"
+            android:padding="20dp"
+            android:layout_marginTop="16dp">
+            <TextView
+                style="@style/HomeHeading"
+                android:text="Masjid berdekatan" />
+            <TextView
+                style="@style/HomeMuted"
+                android:layout_marginTop="8dp"
+                android:id="@+id/list_status"
+                android:text="Mencari masjid berdekatan…" />
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:indeterminateTint="@color/home_purple"
+                android:layout_marginTop="12dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/mosque_items" />
+            <Button
+                android:id="@+id/refresh"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="Segarkan carian"
+                android:textAllCaps="false"
+                android:textColor="@color/home_purple" />
+        </LinearLayout>
+        <TextView
+            style="@style/HomeMuted"
+            android:textSize="10sp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="Data peta &amp; masjid © OpenStreetMap contributors" />
+    </LinearLayout>
+</ScrollView>

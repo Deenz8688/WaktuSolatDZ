@@ -20,6 +20,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import com.deenzstudios.waktusolatdz.R
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -44,15 +46,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.deenzstudios.waktusolatdz.data.PrayerZones
-import com.deenzstudios.waktusolatdz.ui.theme.BrownText
-import com.deenzstudios.waktusolatdz.ui.theme.Cream
-import com.deenzstudios.waktusolatdz.ui.theme.CreamSoft
-import com.deenzstudios.waktusolatdz.ui.theme.Gold100
-import com.deenzstudios.waktusolatdz.ui.theme.Gold300
-import com.deenzstudios.waktusolatdz.ui.theme.Gold700
-import com.deenzstudios.waktusolatdz.ui.theme.Gold800
-import com.deenzstudios.waktusolatdz.ui.theme.Gold900
-import com.deenzstudios.waktusolatdz.ui.theme.GoldTextMuted
+import com.deenzstudios.waktusolatdz.ui.theme.InkText
+import com.deenzstudios.waktusolatdz.ui.theme.SurfaceWhite
+import com.deenzstudios.waktusolatdz.ui.theme.SurfaceSoft
+import com.deenzstudios.waktusolatdz.ui.theme.Purple100
+import com.deenzstudios.waktusolatdz.ui.theme.Purple300
+import com.deenzstudios.waktusolatdz.ui.theme.Purple700
+import com.deenzstudios.waktusolatdz.ui.theme.Purple800
+import com.deenzstudios.waktusolatdz.ui.theme.Purple900
+import com.deenzstudios.waktusolatdz.ui.theme.PurpleTextMuted
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.roundToInt
@@ -66,103 +68,17 @@ private const val KAABA_LATITUDE = 21.4225
 private const val KAABA_LONGITUDE = 39.8262
 
 @Composable
-fun QiblaTab(zone: String) {
-    val info = remember(zone) { PrayerZones.of(zone) }
-    val bearing = remember(info) {
-        info?.let { qiblaBearing(it.latitude, it.longitude) } ?: 0f
-    }
-    val azimuth = rememberCompassAzimuth()
-    val context = LocalContext.current
-    val inPreview = LocalInspectionMode.current
-    val hasCompass = remember(context, inPreview) {
-        inPreview || context.getSystemService(SensorManager::class.java)
-            ?.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) != null
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(start = 20.dp, end = 20.dp, top = ScreenTopInset, bottom = 24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(
-            text = "Arah Kiblat",
-            color = Cream,
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Bold,
-        )
-        Spacer(Modifier.height(4.dp))
-        Text(
-            text = info?.let { "${it.state} • ${it.district}" } ?: "Zon $zone",
-            color = Gold100,
-            fontSize = 12.sp,
-            textAlign = TextAlign.Center,
-        )
-        Spacer(Modifier.height(22.dp))
-
-        QiblaCard {
-            QiblaDial(bearing = bearing, azimuth = azimuth)
-            Spacer(Modifier.height(18.dp))
-            Text(
-                text = "Kiblat ${bearing.roundToInt()}° dari Utara",
-                color = Gold900,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-            )
-            Spacer(Modifier.height(6.dp))
-            Text(
-                text = when {
-                    !hasCompass ->
-                        "Peranti ini tiada sensor kompas — guna darjah kiblat di atas."
-
-                    azimuth == null -> "Menunggu sensor kompas…"
-                    else -> "Arah kompas ${azimuth.roundToInt()}°"
-                },
-                color = BrownText,
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-            )
-            Spacer(Modifier.height(10.dp))
-            Text(
-                text = "Zon ${info?.code ?: zone}",
-                color = GoldTextMuted,
-                fontSize = 11.sp,
-            )
-        }
-
-        Spacer(Modifier.height(16.dp))
-        Text(
-            text = "Kalau jarum tidak stabil, gerakkan telefon membentuk angka 8 untuk kalibrasi.",
-            color = Gold100,
-            fontSize = 10.sp,
-            textAlign = TextAlign.Center,
-        )
-    }
-}
-
-@Composable
-private fun QiblaCard(content: @Composable ColumnScope.() -> Unit) {
-    val shape = RoundedCornerShape(28.dp)
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(shape)
-            .background(Cream)
-            .border(1.dp, Gold100, shape)
-            .padding(20.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        content = content,
-    )
-}
-
-@Composable
-private fun QiblaDial(bearing: Float, azimuth: Float?) {
+internal fun QiblaDial(bearing: Float, azimuth: Float?) {
     val heading = azimuth ?: 0f
+    val cardinalLabels = listOf(
+        0 to stringResource(R.string.ui_cardinal_north),
+        90 to stringResource(R.string.ui_cardinal_east),
+        180 to stringResource(R.string.ui_cardinal_south),
+        270 to stringResource(R.string.ui_cardinal_west),
+    )
     val measurer = rememberTextMeasurer()
     val labelStyle = TextStyle(
-        color = Gold800,
+        color = Purple800,
         fontSize = 11.sp,
         fontWeight = FontWeight.Bold,
     )
@@ -182,7 +98,7 @@ private fun QiblaDial(bearing: Float, azimuth: Float?) {
         // Cakera cekung: gradien lembut dari tengah ke tepi.
         drawCircle(
             brush = Brush.radialGradient(
-                colors = listOf(CreamSoft, Cream),
+                colors = listOf(SurfaceSoft, SurfaceWhite),
                 center = center,
                 radius = radius,
             ),
@@ -190,13 +106,13 @@ private fun QiblaDial(bearing: Float, azimuth: Float?) {
             center = center,
         )
         drawCircle(
-            color = Gold300,
+            color = Purple300,
             radius = radius - 1.2f * unit,
             center = center,
             style = Stroke(width = 2.4f * unit),
         )
         drawCircle(
-            color = Gold100,
+            color = Purple100,
             radius = radius * 0.86f,
             center = center,
             style = Stroke(width = 1.2f * unit),
@@ -205,7 +121,7 @@ private fun QiblaDial(bearing: Float, azimuth: Float?) {
         for (degrees in 0 until 360 step 15) {
             val major = degrees % 90 == 0
             drawLine(
-                color = if (major) Gold800 else Gold300,
+                color = if (major) Purple800 else Purple300,
                 start = pointOnCircle(center, radius * 0.955f, degrees + rot),
                 end = pointOnCircle(
                     center,
@@ -217,7 +133,7 @@ private fun QiblaDial(bearing: Float, azimuth: Float?) {
             )
         }
 
-        listOf(0 to "U", 90 to "T", 180 to "S", 270 to "B").forEach { (degrees, text) ->
+        cardinalLabels.forEach { (degrees, text) ->
             val layout = measurer.measure(text, labelStyle)
             val position = pointOnCircle(center, radius * 0.79f, degrees + rot)
             drawText(
@@ -254,31 +170,31 @@ private fun QiblaDial(bearing: Float, azimuth: Float?) {
 
         // Bayang lembut di bawah jarum — kesan timbul.
         translate(left = 1.6f * unit, top = 2.6f * unit) {
-            drawPath(needle, color = Gold900.copy(alpha = 0.12f))
+            drawPath(needle, color = Purple900.copy(alpha = 0.12f))
         }
 
-        // Bahagian menghala kiblat: emas gelap (sisi terang) + emas terang.
-        drawPath(triangle(center, leftShoulder, northTip), color = Gold900)
-        drawPath(triangle(center, northTip, rightShoulder), color = Gold700)
+        // Bahagian menghala kiblat: dua tona ungu.
+        drawPath(triangle(center, leftShoulder, northTip), color = Purple900)
+        drawPath(triangle(center, northTip, rightShoulder), color = Purple700)
         // Ekor: nada cerah supaya arah kiblat lebih menonjol.
-        drawPath(triangle(center, leftShoulder, southTip), color = Gold300)
-        drawPath(triangle(center, southTip, rightShoulder), color = Gold100)
-        drawPath(needle, color = Gold800.copy(alpha = 0.5f), style = Stroke(width = 1f * unit))
+        drawPath(triangle(center, leftShoulder, southTip), color = Purple300)
+        drawPath(triangle(center, southTip, rightShoulder), color = Purple100)
+        drawPath(needle, color = Purple800.copy(alpha = 0.5f), style = Stroke(width = 1f * unit))
 
         // Hab tengah: cakera kecil bertindih jarum seperti pin kompas.
         drawCircle(
-            color = Gold900.copy(alpha = 0.16f),
+            color = Purple900.copy(alpha = 0.16f),
             radius = radius * 0.056f,
             center = center + Offset(1f * unit, 1.6f * unit),
         )
-        drawCircle(color = Cream, radius = radius * 0.056f, center = center)
+        drawCircle(color = SurfaceWhite, radius = radius * 0.056f, center = center)
         drawCircle(
-            color = Gold700,
+            color = Purple700,
             radius = radius * 0.056f,
             center = center,
             style = Stroke(width = 1.7f * unit),
         )
-        drawCircle(color = Gold900, radius = radius * 0.018f, center = center)
+        drawCircle(color = Purple900, radius = radius * 0.018f, center = center)
 
         // Penanda tetap: arah telefon dipegang.
         val marker = Path().apply {
@@ -287,13 +203,13 @@ private fun QiblaDial(bearing: Float, azimuth: Float?) {
             lineTo(center.x + 3.6f * unit, center.y - radius + 8f * unit)
             close()
         }
-        drawPath(marker, color = Gold900)
+        drawPath(marker, color = Purple900)
     }
 }
 
 /** Arah kompas telefon (0° = Utara). Null jika tiada bacaan/sensor. */
 @Composable
-private fun rememberCompassAzimuth(): Float? {
+internal fun rememberCompassAzimuth(): Float? {
     val context = LocalContext.current
     val inPreview = LocalInspectionMode.current
     var azimuth by remember { mutableStateOf<Float?>(null) }
@@ -330,7 +246,7 @@ private fun rememberCompassAzimuth(): Float? {
 }
 
 /** Arah kiblat dari satu lokasi, dalam darjah dari Utara sebenar. */
-private fun qiblaBearing(latitude: Double, longitude: Double): Float {
+internal fun qiblaBearing(latitude: Double, longitude: Double): Float {
     val phi = Math.toRadians(latitude)
     val kaabaPhi = Math.toRadians(KAABA_LATITUDE)
     val deltaLongitude = Math.toRadians(KAABA_LONGITUDE - longitude)

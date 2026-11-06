@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
-import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import com.deenzstudios.waktusolatdz.notification.PrayerNotifier
@@ -12,6 +11,7 @@ import com.deenzstudios.waktusolatdz.ui.MosqueViewModel
 import com.deenzstudios.waktusolatdz.ui.PrayerScreen
 import com.deenzstudios.waktusolatdz.ui.PrayerViewModel
 import com.deenzstudios.waktusolatdz.ui.theme.WaktuSolatDZTheme
+import com.deenzstudios.waktusolatdz.databinding.ActivityMainBinding
 
 class MainActivity : ComponentActivity() {
 
@@ -26,7 +26,9 @@ class MainActivity : ComponentActivity() {
         )
         // Cipta channel awal supaya ia muncul dalam Tetapan Android walaupun belum berbunyi.
         PrayerNotifier.ensureChannels(this)
-        setContent {
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.appContent.setContent {
             WaktuSolatDZTheme {
                 PrayerScreen(viewModel = viewModel, mosqueViewModel = mosqueViewModel)
             }

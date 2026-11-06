@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Edit the Home palette here. Shared background also uses these colors. -->
+    <color name="home_purple">#7047C6</color>
+    <color name="home_lavender">#F0E9FC</color>
+    <color name="home_ink">#29213E</color>
+    <color name="home_muted">#5A486C</color>
+    <color name="home_white">#FFFFFF</color>
+    <color name="home_soft">#F8F6FC</color>
+    <color name="home_hero_start">#35205F</color>
+    <color name="home_hero_end">#7950CC</color>
+    <color name="home_hero_label">#D8C7F6</color>
+    <color name="home_timer_fill">#24FFFFFF</color>
+    <color name="home_timer_border">#29FFFFFF</color>
+    <color name="app_purple_top">#D2B9EE</color>
+    <color name="app_purple_middle">#E4D5F5</color>
+    <color name="app_purple_bottom">#F0E9FA</color>
+    <color name="app_pattern_purple">#167047C6</color>
+</resources>

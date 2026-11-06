@@ -1,0 +1,7 @@
+<resources>
+    <string name="home_weather_sunny">Cerah</string>
+    <string name="home_weather_clear_night">Malam cerah</string>
+    <string name="home_weather_partly">Sebahagian berawan</string>
+    <string name="home_weather_cloudy">Berawan</string>
+    <string name="home_weather_rain">Hujan</string>
+</resources>

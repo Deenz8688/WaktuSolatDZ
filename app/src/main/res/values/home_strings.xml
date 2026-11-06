@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_logo_description">Logo Waktu Solat DZ</string>
+    <string name="home_today">HARI INI</string>
+    <string name="home_hijri">TARIKH HIJRAH</string>
+    <string name="home_prayer_heading">Waktu hari ini</string>
+    <string name="home_five_prayers">5 WAKTU</string>
+    <string name="home_calendar_heading">Dalam kalendar Islam</string>
+    <string name="home_calendar_note">Anggaran takwim · tertakluk pengumuman rasmi JAKIM</string>
+    <string name="home_quote_heading">Sejenak untuk Yang Maha Esa</string>
+    <string name="home_quote_body">Tenangkan hati. Jaga solat, satu waktu demi satu waktu.</string>
+    <string name="home_source">Waktu tempatan · Sumber e-Solat JAKIM</string>
+    <string name="home_loading">Memuatkan waktu solat…</string>
+    <string name="home_error_heading">Waktu belum dapat dimuatkan</string>
+    <string name="home_retry">Cuba lagi</string>
+    <string name="home_zone_fallback">Zon waktu solat</string>
+    <string name="home_next">Seterusnya</string>
+    <string name="home_passed">Telah masuk waktu</string>
+    <string name="home_days_away">%1$d HARI LAGI</string>
+    <string name="home_date">%1$s, %2$s</string>
+    <string name="home_event_dates">%1$s\n%2$s</string>
+</resources>

@@ -1,0 +1,5 @@
+<resources>
+    <!-- Runtime height follows this many measured rows, including larger fonts. -->
+    <integer name="home_calendar_visible_count">3</integer>
+    <dimen name="home_calendar_preview_height">180dp</dimen>
+</resources>

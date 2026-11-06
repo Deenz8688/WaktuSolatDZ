@@ -32,6 +32,14 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
+    }
+
+    // Keep res/layout focused on the five editable menu screens.
+    sourceSets {
+        getByName("main") {
+            res.srcDir("src/main/res-support")
+        }
     }
 }
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Visible sentences and formats for changing data. No UI wording belongs in Kotlin. -->
+<resources>
+    <string name="ui_countdown_hours">%1$d jam %2$d minit lagi</string>
+    <string name="ui_countdown_minutes">%1$d minit lagi</string>
+    <string name="ui_schedule_date">%1$s · %2$s · %3$s</string>
+    <string name="ui_join_details">%1$s · %2$s</string>
+    <string name="ui_no_compass">Peranti ini tiada sensor kompas — guna darjah kiblat di atas.</string>
+    <string name="ui_waiting_compass">Menunggu sensor kompas…</string>
+    <string name="ui_device_location">Menggunakan lokasi peranti</string>
+    <string name="ui_zone_center">Pusat carian: zon %1$s</string>
+    <string name="ui_mosque_loading">Mencari masjid berdekatan…</string>
+    <string name="ui_mosque_cached">Senarai tersimpan · %1$d masjid dan surau</string>
+    <string name="ui_mosque_empty">Tiada masjid atau surau ditemui dalam kawasan carian.</string>
+    <string name="ui_mosque_count">%1$d masjid dan surau · disusun mengikut jarak</string>
+    <string name="ui_numbered_name">%1$d. %2$s</string>
+    <string name="ui_meters">%1$d m</string>
+    <string name="ui_kilometers">%1$.1f km</string>
+    <string name="ui_kind_mosque">Masjid</string>
+    <string name="ui_kind_surau">Surau</string>
+    <string name="ui_latest_data">Data terkini: %1$s</string>
+    <string name="ui_load_failed">Gagal memuatkan: %1$s</string>
+    <string name="ui_detecting_location">Mengesan lokasi…</string>
+    <string name="ui_enable_location">Pastikan lokasi peranti dihidupkan.</string>
+    <string name="ui_location_detected">Dikesan: %1$s · %2$s</string>
+    <string name="ui_map_recenter">Kembali ke lokasi</string>
+    <string name="ui_map_attribution">© OpenStreetMap contributors</string>
+    <string name="ui_zoom_in">+</string>
+    <string name="ui_zoom_out">−</string>
+    <string name="ui_cardinal_north">U</string>
+    <string name="ui_cardinal_east">T</string>
+    <string name="ui_cardinal_south">S</string>
+    <string name="ui_cardinal_west">B</string>
+</resources>
