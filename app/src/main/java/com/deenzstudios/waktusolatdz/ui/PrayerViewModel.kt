@@ -100,8 +100,8 @@ class PrayerViewModel(application: Application) : AndroidViewModel(application) 
         rescheduleIfEnabled()
     }
 
-    /** Auto-detect hanya jika pengguna belum memilih zon sendiri. */
-    fun shouldAutoDetect(): Boolean = !preferences.hasManualZone
+    /** GPS is the zone selector; a saved manual choice must not disable detection. */
+    fun shouldAutoDetect(): Boolean = true
 
     /** Kesan zon berdasarkan lokasi peranti. */
     fun detectZone() {

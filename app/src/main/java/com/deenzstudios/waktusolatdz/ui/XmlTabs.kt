@@ -9,8 +9,6 @@ import android.os.PowerManager
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.CompoundButton
 import android.widget.FrameLayout
 import android.widget.TextView
@@ -207,14 +205,14 @@ private class MosqueXmlView(context: Context) : FrameLayout(context) {
 @Composable
 internal fun SettingsTab(
     state: PrayerUiState, selectedZone: String, locationState: LocationUiState,
-    onDetectLocation: () -> Unit, onSelectZone: (String) -> Unit,
+    onDetectLocation: () -> Unit,
     notifications: NotificationSettings, exactAlarmAllowed: Boolean,
     onToggleNotifications: (Boolean) -> Unit, onToggleReminder: (Boolean) -> Unit,
     onToggleOnTime: (Boolean) -> Unit, onToggleSlot: (PrayerTimeSlot, Boolean) -> Unit,
     onRequestExactAlarm: () -> Unit,
 ) {
     AndroidView(factory = { SettingsXmlView(it) }, modifier = Modifier.fillMaxSize(), update = {
-        it.render(state, selectedZone, locationState, onDetectLocation, onSelectZone, notifications,
+        it.render(state, selectedZone, locationState, onDetectLocation, notifications,
             exactAlarmAllowed, onToggleNotifications, onToggleReminder, onToggleOnTime,
             onToggleSlot, onRequestExactAlarm)
     })
@@ -223,13 +221,10 @@ internal fun SettingsTab(
 private class SettingsXmlView(context: Context) : FrameLayout(context) {
     private val binding = ScreenSettingsBinding.inflate(LayoutInflater.from(context), this, true)
     private val detectButtonText = binding.detectLocation.text
-    private var boundZone: String? = null
-    private var stateName: String? = null
-    private var zoneOptions = emptyList<PrayerZone>()
     private var enabled = false
 
     fun render(state: PrayerUiState, zone: String, location: LocationUiState,
-        onDetect: () -> Unit, onSelect: (String) -> Unit, settings: NotificationSettings,
+        onDetect: () -> Unit, settings: NotificationSettings,
         exactAllowed: Boolean, onEnabled: (Boolean) -> Unit, onReminder: (Boolean) -> Unit,
         onTime: (Boolean) -> Unit, onSlot: (PrayerTimeSlot, Boolean) -> Unit, onExact: () -> Unit) {
         val info = PrayerZones.of(zone)
@@ -249,26 +244,6 @@ private class SettingsXmlView(context: Context) : FrameLayout(context) {
             LocationUiState.Detecting -> context.getString(R.string.ui_enable_location)
             is LocationUiState.Detected -> context.getString(R.string.ui_location_detected, location.zone.state, location.zone.code)
             is LocationUiState.Failed -> location.message
-        }
-        if (boundZone != zone) {
-            boundZone = zone
-            stateName = info?.state ?: PrayerZones.states.first()
-            binding.stateSpinner.adapter = adapter(PrayerZones.states)
-            binding.stateSpinner.setSelection(PrayerZones.states.indexOf(stateName).coerceAtLeast(0))
-            showZones(stateName!!, zone)
-        }
-        binding.stateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val chosen = PrayerZones.states[position]
-                if (chosen != stateName) {
-                    stateName = chosen
-                    showZones(chosen, zone)
-                }
-            }
-        }
-        binding.applyZone.setOnClickListener {
-            zoneOptions.getOrNull(binding.zoneSpinner.selectedItemPosition)?.let { onSelect(it.code) }
         }
         bindSwitch(binding.notificationsEnabled, settings.enabled, onEnabled)
         enabled = settings.enabled
@@ -290,14 +265,6 @@ private class SettingsXmlView(context: Context) : FrameLayout(context) {
                 runCatching { context.startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)) }
             }
         }
-    }
-    private fun adapter(items: List<String>) = ArrayAdapter(context, R.layout.item_zone_spinner, items).apply {
-        setDropDownViewResource(R.layout.item_zone_spinner)
-    }
-    private fun showZones(state: String, zone: String) {
-        zoneOptions = PrayerZones.inState(state)
-        binding.zoneSpinner.adapter = adapter(zoneOptions.map { context.getString(R.string.ui_join_details, it.code, it.district) })
-        binding.zoneSpinner.setSelection(zoneOptions.indexOfFirst { it.code == zone }.coerceAtLeast(0))
     }
     private fun bindSwitch(view: CompoundButton, checked: Boolean, action: (Boolean) -> Unit) {
         view.setOnCheckedChangeListener(null)

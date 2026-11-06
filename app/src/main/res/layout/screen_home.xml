@@ -178,48 +178,6 @@
                 </LinearLayout>
             </FrameLayout>
             <LinearLayout
-                style="@style/HomeCard"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-                <ImageView
-                    android:layout_width="19dp"
-                    android:layout_height="19dp"
-                    android:src="@drawable/ic_location"
-                    android:tint="@color/home_purple"
-                    android:importantForAccessibility="no" />
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="10dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/zone_district"
-                        style="@style/HomeText"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="Kuala Lumpur, Putrajaya"
-                        tools:text="Kuala Lumpur, Putrajaya" />
-                    <TextView
-                        android:id="@+id/zone_state"
-                        style="@style/HomeMuted"
-                        android:layout_marginTop="3dp"
-                        android:text="Wilayah Persekutuan"
-                        tools:text="Wilayah Persekutuan" />
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/zone_code"
-                    style="@style/HomeLabel"
-                    android:layout_marginStart="8dp"
-                    android:background="@drawable/bg_home_badge"
-                    android:paddingStart="9dp"
-                    android:paddingEnd="9dp"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp"
-                    android:text="WLY01"
-                    tools:text="WLY01" />
-            </LinearLayout>
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"

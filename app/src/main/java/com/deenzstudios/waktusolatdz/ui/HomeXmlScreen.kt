@@ -97,10 +97,6 @@ private class HomeXmlView(context: Context) : FrameLayout(context) {
         }
 
         val times = state.times
-        val zone = PrayerZones.of(times.zone)
-        content.zoneDistrict.text = zone?.district ?: times.zone
-        content.zoneState.text = zone?.state ?: context.getString(R.string.home_zone_fallback)
-        content.zoneCode.text = times.zone
         content.nextName.text = nextName
         content.nextTime.text = nextTime
         content.countdown.text = countdown

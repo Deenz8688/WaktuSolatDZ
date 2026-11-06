@@ -1,5 +1,5 @@
 <objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
-    android:propertyName="translationX" android:valueFrom="-4" android:valueTo="4"
-    android:valueType="floatType" android:duration="2800"
+    android:propertyName="translationX" android:valueFrom="-8" android:valueTo="8"
+    android:valueType="floatType" android:duration="2500"
     android:repeatCount="infinite" android:repeatMode="reverse"
     android:interpolator="@android:interpolator/fast_out_slow_in" />

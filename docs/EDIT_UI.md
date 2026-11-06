@@ -21,7 +21,7 @@ Paparan **Android** mungkin menggabungkan resource daripada kedua-dua direktori.
 | Kiblat | `app/src/main/res/layout/screen_qibla.xml` |
 | Masjid dan peta | `app/src/main/res/layout/screen_mosque.xml` |
 | Baris senarai masjid | `app/src/main/res-support/layout/item_mosque.xml` |
-| Tetapan, pilihan zon dan suis notifikasi | `app/src/main/res/layout/screen_settings.xml` |
+| Tetapan, lokasi GPS dan suis notifikasi | `app/src/main/res/layout/screen_settings.xml` |
 | Skrin Home penuh, padding dan keadaan loading/error | `app/src/main/res/layout/screen_home.xml` |
 | Kandungan penuh Home dan kad solat seterusnya | `app/src/main/res/layout/screen_home.xml` |
 | Cuaca: posisi, saiz dan ikon (`weather_group`) | `app/src/main/res/layout/screen_home.xml` |
@@ -62,6 +62,7 @@ Cuaca Home menggunakan koordinat zon yang dipilih dan sumber Open-Meteo yang sed
 Paparan dikemas kini setiap 30 minit semasa Home aktif. Tanpa bacaan cuaca, ikon disembunyikan.
 Matahari/bulan dipilih mengikut waktu Syuruk dan Maghrib jadual semasa.
 Animasi dihentikan apabila Home ditinggalkan atau tetingkap tidak aktif.
+Satu kitaran animasi mengambil 5 saat; gerakan ulang-alik menggunakan 2.5 saat setiap arah.
 XML menunjukkan contoh cuaca dalam editor; app memaparkan data yang berjaya diperoleh.
 Semua tab dan menu bawah sudah mempunyai layout XML. Kod layout Compose yang lama sudah dibuang.
 Navigasi sedia ada masih menggunakan jambatan Compose dalam `PrayerScreen.kt`.
@@ -71,5 +72,6 @@ dan `QiblaCompass.kt`. Kedudukan dan saiz komponennya ditetapkan melalui `screen
 dan `screen_qibla.xml`; pan, zoom, jubin peta dan bacaan sensor kekal dalam Kotlin.
 Ia menggunakan `ComposeView` di dalam XML, jadi plugin Compose masih diperlukan.
 
-Pilihan negeri dan daerah kini menggunakan Spinner XML. Selepas memilih, tekan **Gunakan zon ini**.
+Zon dikesan melalui GPS apabila app dibuka. Butang **Kesan Kawasan Saya** boleh mengesan semula lokasi.
+Kad pilihan zon manual sudah dibuang; zon terakhir kekal tersimpan untuk kegunaan app dan notifikasi.
 Jangan buang ID view tanpa mengemas kini binding Kotlin yang berkaitan.

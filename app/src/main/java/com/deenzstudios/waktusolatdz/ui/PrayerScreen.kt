@@ -66,7 +66,7 @@ fun PrayerScreen(viewModel: PrayerViewModel, mosqueViewModel: MosqueViewModel) {
         viewModel.setNotificationsEnabled(granted)
     }
 
-    // Auto-detect sekali semasa app dibuka, selagi pengguna belum pilih zon sendiri.
+    // Auto-detect GPS sekali semasa app dibuka.
     LaunchedEffect(Unit) {
         if (viewModel.shouldAutoDetect()) {
             if (LocationDetector.hasPermission(context)) {
@@ -155,7 +155,6 @@ fun PrayerScreen(viewModel: PrayerViewModel, mosqueViewModel: MosqueViewModel) {
                         selectedZone = zone,
                         locationState = locationState,
                         onDetectLocation = detectLocation,
-                        onSelectZone = { viewModel.selectZone(it) },
                         notifications = notifications,
                         exactAlarmAllowed = exactAlarmAllowed,
                         onToggleNotifications = toggleNotifications,
