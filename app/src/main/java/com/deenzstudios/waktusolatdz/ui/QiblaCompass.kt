@@ -21,6 +21,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.colorResource
 import com.deenzstudios.waktusolatdz.R
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
@@ -70,6 +71,11 @@ private const val KAABA_LONGITUDE = 39.8262
 @Composable
 internal fun QiblaDial(bearing: Float, azimuth: Float?) {
     val heading = azimuth ?: 0f
+    val needleColors = listOf(
+        colorResource(R.color.home_hero_start),
+        colorResource(R.color.home_hero_center),
+        colorResource(R.color.home_hero_end),
+    )
     val cardinalLabels = listOf(
         0 to stringResource(R.string.ui_cardinal_north),
         90 to stringResource(R.string.ui_cardinal_east),
@@ -173,9 +179,10 @@ internal fun QiblaDial(bearing: Float, azimuth: Float?) {
             drawPath(needle, color = Purple900.copy(alpha = 0.12f))
         }
 
-        // Bahagian menghala kiblat: dua tona ungu.
-        drawPath(triangle(center, leftShoulder, northTip), color = Purple900)
-        drawPath(triangle(center, northTip, rightShoulder), color = Purple700)
+        // Jarum panjang menghala kiblat menggunakan warna tema app.
+        val needleBrush = Brush.linearGradient(needleColors, start = center, end = northTip)
+        drawPath(triangle(center, leftShoulder, northTip), brush = needleBrush)
+        drawPath(triangle(center, northTip, rightShoulder), brush = needleBrush)
         // Ekor: nada cerah supaya arah kiblat lebih menonjol.
         drawPath(triangle(center, leftShoulder, southTip), color = Purple300)
         drawPath(triangle(center, southTip, rightShoulder), color = Purple100)

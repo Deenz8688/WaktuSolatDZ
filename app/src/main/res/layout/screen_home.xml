@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_home"
+    android:background="@android:color/white"
     android:fillViewport="true"
     android:scrollbars="none"
+    android:clipChildren="false"
     android:clipToPadding="false"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
@@ -15,10 +16,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipChildren="false"
         android:orientation="vertical">
         <LinearLayout
             android:id="@+id/status_card"
             style="@style/HomeCard"
+            android:elevation="4dp"
             android:orientation="vertical"
             android:gravity="center_horizontal"
             android:padding="28dp"
@@ -33,36 +36,38 @@
                 style="@style/HomeText"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:text="Memuatkan waktu solat…" />
+                android:text="@string/lang_text_034" />
             <TextView
                 android:id="@+id/error_message"
                 style="@style/HomeMuted"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:visibility="gone"
-                android:text="Tidak dapat memuatkan data." />
+                android:text="@string/lang_text_035" />
             <Button
                 android:id="@+id/retry_button"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minHeight="48dp"
-                android:text="Cuba lagi"
+                android:text="@string/lang_text_036"
                 android:textAllCaps="false"
                 android:textColor="@color/home_purple"
-                android:visibility="gone" />
+                android:visibility="gone"  tools:textSize="14sp" tools:gravity="center"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/home_content"
+            android:clipChildren="false"
             android:visibility="gone"
             tools:visibility="visible">
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_home_hero"
+                android:elevation="4dp"
                 android:clipToOutline="true"
                 android:id="@+id/next_prayer">
 
@@ -86,7 +91,7 @@
                             android:textSize="22sp"
                             android:fontFamily="sans-serif-medium"
                             android:textColor="@color/home_white"
-                            android:text="Subuh"
+                            android:text="@string/lang_text_052"
                             tools:text="Subuh" />
                         <TextView
                             android:id="@+id/next_time"
@@ -105,7 +110,7 @@
                             android:gravity="center_vertical">
                             <TextView
                                 style="@style/HomeLabel"
-                                android:text="SOLAT SETERUSNYA :"
+                                android:text="@string/lang_text_032"
                                 android:textColor="@color/home_hero_label"
                                 android:textSize="9sp"
                                 android:letterSpacing="0.05" />
@@ -141,7 +146,7 @@
                         android:orientation="vertical"
                         android:gravity="center_horizontal"
                         android:focusable="true"
-                        android:visibility="gone"
+                        android:visibility="invisible"
                         tools:visibility="visible">
                         <FrameLayout
                             android:layout_width="108dp"
@@ -219,10 +224,11 @@
                 android:id="@+id/calendar_section"
                 style="@style/HomeSection"
                 android:background="@drawable/bg_home_card"
+                android:elevation="4dp"
                 android:padding="20dp">
                 <TextView
                     style="@style/HomeHeading"
-                    android:text="Takwim Islam" />
+                    android:text="@string/lang_text_031" />
                 <ScrollView
                     android:id="@+id/event_scroll"
                     android:layout_width="match_parent"
@@ -245,13 +251,69 @@
                     </LinearLayout>
                 </ScrollView>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="96dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/shortcut_zikir"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_home_shortcut"
+                        android:contentDescription="Zikir"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:padding="13dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_shortcut_zikir" />
+                    <TextView
+                        style="@style/HomeText"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Zikir"
+                        android:textSize="12sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="96dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/shortcut_tasbih"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_home_shortcut"
+                        android:contentDescription="Tasbih"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:padding="13dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_shortcut_tasbih" />
+                    <TextView
+                        style="@style/HomeText"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Tasbih"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
             <TextView
                 style="@style/HomeMuted"
                 android:layout_width="match_parent"
                 android:layout_marginTop="22dp"
                 android:gravity="center"
                 android:textSize="10sp"
-                android:text="Waktu tempatan · Sumber e-Solat JAKIM" />
+                android:text="@string/lang_text_033" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

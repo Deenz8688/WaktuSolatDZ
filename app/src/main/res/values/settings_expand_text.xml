@@ -1,0 +1,6 @@
+<resources>
+    <string name="settings_notification_expand">Buka tetapan notifikasi</string>
+    <string name="settings_notification_collapse">Tutup tetapan notifikasi</string>
+    <string name="settings_language_expand">Buka tetapan bahasa</string>
+    <string name="settings_language_collapse">Tutup tetapan bahasa</string>
+</resources>

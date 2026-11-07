@@ -19,7 +19,7 @@
         <TextView android:id="@+id/days_away" style="@style/HomeLabel"
             android:layout_marginStart="12dp" android:maxWidth="88dp"
             android:gravity="center" android:background="@drawable/bg_home_badge"
-            android:padding="8dp" android:text="20 HARI LAGI" tools:text="20 HARI LAGI" />
+            android:padding="8dp" android:text="@string/lang_text_038" tools:text="20 HARI LAGI" />
     </LinearLayout>
     <View android:layout_width="match_parent" android:layout_height="1dp"
         android:layout_marginTop="12dp" android:background="@color/home_lavender"

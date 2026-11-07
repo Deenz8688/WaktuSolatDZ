@@ -38,6 +38,8 @@
     <!-- Widget 4x2 -->
     <string name="widget_title">WAKTU SOLAT</string>
     <string name="widget_next_label">SOLAT SETERUSNYA</string>
+    <string name="widget_next_tomorrow">%1$s · %2$s (esok)</string>
+    <string name="widget_accessible_summary">%1$s. Solat seterusnya %2$s. %3$s.</string>
     <string name="widget_dates_sample">6 Rabiulakhir 1448H · 17 Oktober 2026</string>
     <string name="widget_description">Waktu solat hari ini mengikut zon JAKIM.</string>
     <string name="widget_zone_sample">WLY01 · Wilayah Persekutuan</string>

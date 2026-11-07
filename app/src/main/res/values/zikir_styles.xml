@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ZikirCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:background">@drawable/bg_zikir_card</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">16dp</item>
+    </style>
+    <style name="ZikirHeading" parent="HomeText">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/home_purple</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="ZikirArabic" parent="HomeText">
+        <item name="android:fontFamily">@font/amiri_regular</item>
+        <item name="android:tag">zikir_arabic</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:gravity">end</item>
+        <item name="android:textDirection">rtl</item>
+        <item name="android:includeFontPadding">true</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+    <style name="ZikirRumi" parent="HomeText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:gravity">start</item>
+        <item name="android:textColor">@color/home_muted</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+</resources>

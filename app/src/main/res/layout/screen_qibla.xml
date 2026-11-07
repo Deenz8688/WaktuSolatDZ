@@ -6,21 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@drawable/bg_qibla"
+    android:background="@android:color/white"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
     android:paddingTop="56dp"
     android:paddingBottom="24dp"
+    android:clipChildren="false"
     android:clipToPadding="false">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:gravity="center_vertical"
         android:orientation="vertical">
         <TextView
             style="@style/HomeHeading"
             android:textSize="22sp"
             android:layout_gravity="center_horizontal"
-            android:text="Arah Kiblat" />
+            android:text="@string/lang_text_005" />
         <TextView
             style="@style/HomeMuted"
             android:layout_marginTop="6dp"
@@ -32,7 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_home_card"
+            android:background="@drawable/bg_home_hero"
+            android:elevation="4dp"
             android:padding="20dp"
             android:layout_marginTop="16dp">
             <androidx.compose.ui.platform.ComposeView
@@ -45,6 +49,7 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_marginTop="18dp"
+                android:textColor="@color/home_white"
                 tools:text="Kiblat 292° dari Utara"
                 android:id="@+id/bearing"
                 android:text="Kiblat 292° dari Utara" />
@@ -53,6 +58,7 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_marginTop="8dp"
+                android:textColor="@color/home_hero_label"
                 tools:text="Arah kompas 90°"
                 android:id="@+id/reading"
                 android:text="Arah kompas 90°" />
@@ -60,6 +66,7 @@
                 style="@style/HomeLabel"
                 android:layout_marginTop="12dp"
                 android:layout_gravity="center_horizontal"
+                android:textColor="@color/home_white"
                 android:id="@+id/zone"
                 android:text="WLY01" />
         </LinearLayout>
@@ -68,6 +75,6 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_marginTop="16dp"
-            android:text="Kalau jarum tidak stabil, gerakkan telefon membentuk angka 8 untuk kalibrasi." />
+            android:text="@string/lang_text_030" />
     </LinearLayout>
 </ScrollView>

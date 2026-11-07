@@ -7,6 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="widget_primary">#FFFFFFFF</color>
+    <color name="widget_muted">#FFF2DFED</color>
+    <color name="widget_highlight">#F2FFFFFF</color>
+    <color name="widget_highlight_text">#FF43225D</color>
 
     <!-- Palet emas Islamik -->
     <color name="gold_900">#FF6B4E00</color>

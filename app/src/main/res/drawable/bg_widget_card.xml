@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Latar kad widget krim dengan bucu bulat dan garis tepi emas -->
+<!-- Latar widget ungu-merah dengan sedikit ketelusan -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="@color/cream_80" />
+    <gradient android:angle="0"
+        android:startColor="#E636205F"
+        android:centerColor="#E672255D"
+        android:endColor="#E6AE3558" />
     <corners android:radius="24dp" />
     <stroke
         android:width="1dp"
-        android:color="@color/gold_300" />
+        android:color="#4DFFFFFF" />
 </shape>

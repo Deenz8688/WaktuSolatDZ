@@ -1,0 +1,5 @@
+<resources>
+    <string name="language_heading">Bahasa</string>
+    <string name="language_translation_note">Sesetengah kandungan dan notifikasi masih dalam Bahasa Melayu.</string>
+    <string name="settings_exact_explanation">Notifikasi boleh lewat selagi "Alarm &amp; peringatan" belum dibenarkan. Benarkan untuk peringatan 5 minit dan masuk waktu yang tepat.</string>
+</resources>

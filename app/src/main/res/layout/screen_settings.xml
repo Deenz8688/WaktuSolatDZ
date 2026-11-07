@@ -7,30 +7,68 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:scrollbars="none"
-    android:background="@drawable/bg_settings"
+    android:background="@android:color/white"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
     android:paddingTop="56dp"
     android:paddingBottom="24dp"
+    android:clipChildren="false"
     android:clipToPadding="false">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipChildren="false"
         android:orientation="vertical">
         <TextView
             style="@style/HomeHeading"
             android:textSize="22sp"
-            android:text="Tetapan" />
+            android:text="@string/lang_text_000" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/bg_home_card"
+            android:elevation="4dp"
+            android:padding="20dp"
+            android:layout_marginTop="16dp">
+            <TextView
+                style="@style/HomeHeading"
+                android:textSize="16sp"
+                android:text="@string/lang_text_007" />
+            <TextView
+                style="@style/HomeMuted"
+                android:layout_marginTop="6dp"
+                android:text="@string/lang_text_008" />
+            <Button
+                android:id="@+id/detect_location"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_tasbih_action"
+                android:text="@string/lang_text_009"
+                android:textAllCaps="false"
+                android:textColor="@color/home_white"  tools:textSize="14sp" tools:gravity="center"/>
+            <TextView
+                style="@style/HomeMuted"
+                android:id="@+id/location_status"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/lang_text_010" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_home_card"
+            android:elevation="4dp"
             android:padding="20dp"
             android:layout_marginTop="16dp">
             <TextView
                 style="@style/HomeLabel"
-                android:text="ZON WAKTU SOLAT" />
+                android:text="@string/lang_text_011" />
             <TextView
                 style="@style/HomeHeading"
                 android:layout_marginTop="8dp"
@@ -45,64 +83,127 @@
                 style="@style/HomeMuted"
                 android:layout_marginTop="8dp"
                 android:id="@+id/data_status"
-                android:text="Data waktu solat terkini" />
+                android:text="@string/lang_text_012" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/bg_home_card"
+            android:elevation="4dp"
             android:padding="20dp"
             android:layout_marginTop="16dp">
-            <TextView
-                style="@style/HomeHeading"
-                android:textSize="16sp"
-                android:text="Lokasi Automatik" />
-            <TextView
-                style="@style/HomeMuted"
-                android:layout_marginTop="6dp"
-                android:text="Kesan zon waktu solat berdasarkan lokasi peranti." />
-            <Button
-                android:id="@+id/detect_location"
-                style="?android:attr/borderlessButtonStyle"
+            <LinearLayout
+                android:id="@+id/language_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="48dp"
-                android:text="Kesan Kawasan Saya"
-                android:textAllCaps="false"
-                android:textColor="@color/home_purple" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/settings_language_expand">
+                <TextView
+                    style="@style/HomeHeading"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:text="@string/language_heading" />
+                <ImageView
+                    android:id="@+id/language_arrow"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_settings_expand"
+                    android:importantForAccessibility="no" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/language_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="gone">
+            <RadioGroup
+                android:id="@+id/language_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RadioButton
+                    android:id="@+id/language_malay"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:buttonTint="@color/home_hero_center"
+                    android:text="Bahasa Melayu"  tools:textSize="14sp"/>
+                <RadioButton
+                    android:id="@+id/language_english"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:buttonTint="@color/home_hero_center"
+                    android:text="English"  tools:textSize="14sp"/>
+            </RadioGroup>
             <TextView
                 style="@style/HomeMuted"
-                android:id="@+id/location_status"
-                android:text="Kesan zon berdasarkan lokasi peranti." />
+                android:layout_width="match_parent"
+                android:layout_marginTop="6dp"
+                android:text="@string/language_translation_note" />
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/bg_home_card"
+            android:elevation="4dp"
             android:padding="20dp"
             android:layout_marginTop="16dp">
-            <TextView
-                style="@style/HomeHeading"
-                android:textSize="16sp"
-                android:text="Notifikasi" />
+            <LinearLayout
+                android:id="@+id/notification_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@string/settings_notification_expand">
+                <TextView
+                    style="@style/HomeHeading"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:text="@string/lang_text_013" />
+                <ImageView
+                    android:id="@+id/notification_arrow"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_settings_expand"
+                    android:importantForAccessibility="no" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/notification_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="gone">
             <TextView
                 style="@style/HomeMuted"
                 android:layout_marginTop="6dp"
-                android:text="Peringatan solat harian mengikut zon yang dipilih." />
+                android:text="@string/lang_text_014" />
             <Switch
                 android:id="@+id/notifications_enabled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="48dp"
-                android:text="Aktifkan notifikasi"
+                android:text="@string/lang_text_015"
                 android:textColor="@color/home_ink"
                 android:textSize="12sp"
-                android:thumbTint="@color/xml_switch_thumb"
-                android:trackTint="@color/xml_switch_track"
+                android:thumb="@drawable/bg_settings_switch_thumb"
+                android:thumbTint="@null"
+                android:track="@drawable/bg_settings_switch_track"
+                android:trackTint="@null"
                 android:paddingTop="8dp"
-                android:paddingBottom="8dp" />
+                android:paddingBottom="8dp"  tools:textSize="14sp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,29 +214,33 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
-                    android:text="Peringatan 5 minit sebelum"
+                    android:text="@string/lang_text_016"
                     android:textColor="@color/home_ink"
                     android:textSize="12sp"
-                    android:thumbTint="@color/xml_switch_thumb"
-                    android:trackTint="@color/xml_switch_track"
+                    android:thumb="@drawable/bg_settings_switch_thumb"
+                android:thumbTint="@null"
+                    android:track="@drawable/bg_settings_switch_track"
+                android:trackTint="@null"
                     android:paddingTop="8dp"
-                    android:paddingBottom="8dp" />
+                    android:paddingBottom="8dp"  tools:textSize="14sp"/>
                 <Switch
                     android:id="@+id/notify_on_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
-                    android:text="Masuk waktu solat"
+                    android:text="@string/lang_text_017"
                     android:textColor="@color/home_ink"
                     android:textSize="12sp"
-                    android:thumbTint="@color/xml_switch_thumb"
-                    android:trackTint="@color/xml_switch_track"
+                    android:thumb="@drawable/bg_settings_switch_thumb"
+                android:thumbTint="@null"
+                    android:track="@drawable/bg_settings_switch_track"
+                android:trackTint="@null"
                     android:paddingTop="8dp"
-                    android:paddingBottom="8dp" />
+                    android:paddingBottom="8dp"  tools:textSize="14sp"/>
                 <TextView
                     style="@style/HomeLabel"
                     android:layout_marginTop="12dp"
-                    android:text="WAKTU NOTIFIKASI" />
+                    android:text="@string/lang_text_018" />
                 <Switch
                     android:id="@+id/slot_imsak"
                     android:layout_width="match_parent"
@@ -144,34 +249,40 @@
                     android:text="Imsak"
                     android:textColor="@color/home_ink"
                     android:textSize="12sp"
-                    android:thumbTint="@color/xml_switch_thumb"
-                    android:trackTint="@color/xml_switch_track"
+                    android:thumb="@drawable/bg_settings_switch_thumb"
+                android:thumbTint="@null"
+                    android:track="@drawable/bg_settings_switch_track"
+                android:trackTint="@null"
                     android:paddingTop="8dp"
-                    android:paddingBottom="8dp" />
+                    android:paddingBottom="8dp"  tools:textSize="14sp"/>
                 <Switch
                     android:id="@+id/slot_subuh"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
-                    android:text="Subuh"
+                    android:text="@string/lang_text_052"
                     android:textColor="@color/home_ink"
                     android:textSize="12sp"
-                    android:thumbTint="@color/xml_switch_thumb"
-                    android:trackTint="@color/xml_switch_track"
+                    android:thumb="@drawable/bg_settings_switch_thumb"
+                android:thumbTint="@null"
+                    android:track="@drawable/bg_settings_switch_track"
+                android:trackTint="@null"
                     android:paddingTop="8dp"
-                    android:paddingBottom="8dp" />
+                    android:paddingBottom="8dp"  tools:textSize="14sp"/>
                 <Switch
                     android:id="@+id/slot_syuruk"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
-                    android:text="Syuruk"
+                    android:text="@string/lang_text_056"
                     android:textColor="@color/home_ink"
                     android:textSize="12sp"
-                    android:thumbTint="@color/xml_switch_thumb"
-                    android:trackTint="@color/xml_switch_track"
+                    android:thumb="@drawable/bg_settings_switch_thumb"
+                android:thumbTint="@null"
+                    android:track="@drawable/bg_settings_switch_track"
+                android:trackTint="@null"
                     android:paddingTop="8dp"
-                    android:paddingBottom="8dp" />
+                    android:paddingBottom="8dp"  tools:textSize="14sp"/>
                 <Switch
                     android:id="@+id/slot_dhuha"
                     android:layout_width="match_parent"
@@ -180,34 +291,40 @@
                     android:text="Dhuha"
                     android:textColor="@color/home_ink"
                     android:textSize="12sp"
-                    android:thumbTint="@color/xml_switch_thumb"
-                    android:trackTint="@color/xml_switch_track"
+                    android:thumb="@drawable/bg_settings_switch_thumb"
+                android:thumbTint="@null"
+                    android:track="@drawable/bg_settings_switch_track"
+                android:trackTint="@null"
                     android:paddingTop="8dp"
-                    android:paddingBottom="8dp" />
+                    android:paddingBottom="8dp"  tools:textSize="14sp"/>
                 <Switch
                     android:id="@+id/slot_zohor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
-                    android:text="Zohor"
+                    android:text="@string/lang_text_053"
                     android:textColor="@color/home_ink"
                     android:textSize="12sp"
-                    android:thumbTint="@color/xml_switch_thumb"
-                    android:trackTint="@color/xml_switch_track"
+                    android:thumb="@drawable/bg_settings_switch_thumb"
+                android:thumbTint="@null"
+                    android:track="@drawable/bg_settings_switch_track"
+                android:trackTint="@null"
                     android:paddingTop="8dp"
-                    android:paddingBottom="8dp" />
+                    android:paddingBottom="8dp"  tools:textSize="14sp"/>
                 <Switch
                     android:id="@+id/slot_asar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
-                    android:text="Asar"
+                    android:text="@string/lang_text_054"
                     android:textColor="@color/home_ink"
                     android:textSize="12sp"
-                    android:thumbTint="@color/xml_switch_thumb"
-                    android:trackTint="@color/xml_switch_track"
+                    android:thumb="@drawable/bg_settings_switch_thumb"
+                android:thumbTint="@null"
+                    android:track="@drawable/bg_settings_switch_track"
+                android:trackTint="@null"
                     android:paddingTop="8dp"
-                    android:paddingBottom="8dp" />
+                    android:paddingBottom="8dp"  tools:textSize="14sp"/>
                 <Switch
                     android:id="@+id/slot_maghrib"
                     android:layout_width="match_parent"
@@ -216,22 +333,26 @@
                     android:text="Maghrib"
                     android:textColor="@color/home_ink"
                     android:textSize="12sp"
-                    android:thumbTint="@color/xml_switch_thumb"
-                    android:trackTint="@color/xml_switch_track"
+                    android:thumb="@drawable/bg_settings_switch_thumb"
+                android:thumbTint="@null"
+                    android:track="@drawable/bg_settings_switch_track"
+                android:trackTint="@null"
                     android:paddingTop="8dp"
-                    android:paddingBottom="8dp" />
+                    android:paddingBottom="8dp"  tools:textSize="14sp"/>
                 <Switch
                     android:id="@+id/slot_isyak"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
-                    android:text="Isyak"
+                    android:text="@string/lang_text_055"
                     android:textColor="@color/home_ink"
                     android:textSize="12sp"
-                    android:thumbTint="@color/xml_switch_thumb"
-                    android:trackTint="@color/xml_switch_track"
+                    android:thumb="@drawable/bg_settings_switch_thumb"
+                android:thumbTint="@null"
+                    android:track="@drawable/bg_settings_switch_track"
+                android:trackTint="@null"
                     android:paddingTop="8dp"
-                    android:paddingBottom="8dp" />
+                    android:paddingBottom="8dp"  tools:textSize="14sp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -240,16 +361,18 @@
                     android:layout_marginTop="12dp">
                     <TextView
                         style="@style/HomeMuted"
-                        android:text='Notifikasi boleh lewat selagi "Alarm &amp; peringatan" belum dibenarkan. Benarkan untuk peringatan 5 minit dan masuk waktu yang tepat.' />
+                        android:text="@string/settings_exact_explanation" />
                     <Button
                         android:id="@+id/allow_exact_alarm"
                         style="?android:attr/borderlessButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="48dp"
-                        android:text="Benarkan Alarm &amp; peringatan"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_tasbih_action"
+                        android:text="@string/lang_text_019"
                         android:textAllCaps="false"
-                        android:textColor="@color/home_purple" />
+                        android:textColor="@color/home_white"  tools:textSize="14sp" tools:gravity="center"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -259,28 +382,30 @@
                     android:layout_marginTop="12dp">
                     <TextView
                         style="@style/HomeMuted"
-                        android:text="Benarkan app berjalan di latar belakang supaya notifikasi boleh diterima semasa telefon tidak digunakan." />
+                        android:text="@string/lang_text_020" />
                     <Button
                         android:id="@+id/allow_battery"
                         style="?android:attr/borderlessButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="48dp"
-                        android:text="Tetapan bateri"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_tasbih_action"
+                        android:text="@string/lang_text_021"
                         android:textAllCaps="false"
-                        android:textColor="@color/home_purple" />
+                        android:textColor="@color/home_white"  tools:textSize="14sp" tools:gravity="center"/>
                 </LinearLayout>
+            </LinearLayout>
             </LinearLayout>
         </LinearLayout>
         <TextView
-            style="@style/HomeMuted"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="Zon yang dipilih akan disimpan pada peranti ini." />
-        <TextView
+            android:id="@+id/studio_credit"
             style="@style/HomeMuted"
             android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
             android:gravity="center"
+            android:textColor="@color/home_hero_center"
+            android:textStyle="bold"
             android:text="Powered by Deenz Studios" />
     </LinearLayout>
 </ScrollView>

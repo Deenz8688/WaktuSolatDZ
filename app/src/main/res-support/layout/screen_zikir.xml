@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="32dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/back_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:contentDescription="@string/lang_text_044"
+                android:text="‹"
+                android:textColor="@color/home_hero_start"
+                android:textSize="36sp" />
+            <TextView
+                style="@style/HomeHeading"
+                android:layout_marginStart="8dp"
+                android:text="Zikir"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/HomeMuted"
+            android:layout_width="match_parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/lang_text_045"
+            android:textSize="14sp" />
+
+        <LinearLayout style="@style/ZikirCard">
+            <TextView style="@style/ZikirHeading" android:text="Tasbih" />
+            <TextView style="@style/ZikirArabic" android:text="سُبْحَانَ الله" />
+            <TextView style="@style/ZikirRumi" android:text="Subhanallah" />
+        </LinearLayout>
+        <LinearLayout style="@style/ZikirCard">
+            <TextView style="@style/ZikirHeading" android:text="Tahmid" />
+            <TextView style="@style/ZikirArabic" android:text="الْحَمْدُ لِلَّهِ" />
+            <TextView style="@style/ZikirRumi" android:text="Alhamdulillah" />
+        </LinearLayout>
+        <LinearLayout style="@style/ZikirCard">
+            <TextView style="@style/ZikirHeading" android:text="Takbir" />
+            <TextView style="@style/ZikirArabic" android:text="اللهُ أَكْبَرُ" />
+            <TextView style="@style/ZikirRumi" android:text="Allahu Akbar" />
+        </LinearLayout>
+        <LinearLayout style="@style/ZikirCard">
+            <TextView style="@style/ZikirHeading" android:text="Tahlil" />
+            <TextView style="@style/ZikirArabic" android:text="لَا إِلٰهَ إِلَّا اللَّهُ" />
+            <TextView style="@style/ZikirRumi" android:text="La ilaha illallah" />
+        </LinearLayout>
+        <LinearLayout style="@style/ZikirCard">
+            <TextView style="@style/ZikirHeading" android:text="Istighfar" />
+            <TextView style="@style/ZikirArabic" android:text="أَسْتَغْفِرُ اللهَ" />
+            <TextView style="@style/ZikirRumi" android:text="Astaghfirullah" />
+        </LinearLayout>
+        <LinearLayout style="@style/ZikirCard">
+            <TextView style="@style/ZikirHeading" android:text="@string/lang_text_046" />
+            <TextView style="@style/ZikirArabic" android:text="سُبْحَانَ اللهِ وَبِحَمْدِهِ سُبْحَانَ اللهِ الْعَظِيْم" />
+            <TextView style="@style/ZikirRumi" android:text="Subhaanallahi wa bihamdihi" />
+            <TextView style="@style/ZikirRumi" android:text="Subhanallahil \'Azim" />
+        </LinearLayout>
+        <LinearLayout style="@style/ZikirCard">
+            <TextView style="@style/ZikirHeading" android:text="@string/lang_text_047" />
+            <TextView style="@style/ZikirArabic" android:text="سُبْحَانَ اللَّهِ الْعَظِيمِ وَبِحَمْدِهِ" />
+        </LinearLayout>
+        <LinearLayout style="@style/ZikirCard">
+            <TextView style="@style/ZikirHeading" android:text="@string/lang_text_048" />
+            <TextView style="@style/ZikirArabic" android:text="سُبْحَانَ اللهِ وَالْحَمْدُ لِلَّهِ وَلَا إِلٰهَ إِلَّا اللهُ وَاللهُ أَكْبَرُ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللهِ الْعَلِيِّ الْعَظِيمِ" />
+        </LinearLayout>
+        <LinearLayout style="@style/ZikirCard">
+            <TextView style="@style/ZikirHeading" android:text="@string/lang_text_049" />
+            <TextView style="@style/ZikirArabic" android:text="رضيت بالله رباً وبالإسلام ديناً وبمحمد نبياً ورسولاً" />
+        </LinearLayout>
+        <LinearLayout style="@style/ZikirCard">
+            <TextView style="@style/ZikirHeading" android:text="@string/lang_text_050" />
+            <TextView style="@style/ZikirArabic" android:text="سبحان الله وبحمده عدد خلقه ورضا نفسه وزنة عرشه ومداد كلماته" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/HomeMuted"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/lang_text_051"
+            android:textSize="11sp" />
+    </LinearLayout>
+</ScrollView>

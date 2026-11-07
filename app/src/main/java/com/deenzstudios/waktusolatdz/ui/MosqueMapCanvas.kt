@@ -52,6 +52,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
@@ -254,8 +255,7 @@ internal fun MosqueMapCanvas(
                 .padding(8.dp)
                 .size(32.dp)
                 .clip(CircleShape)
-                .background(SurfaceWhite)
-                .border(1.dp, Purple300, CircleShape)
+                .background(mapButtonBrush())
                 .clickable {
                     mapCenter = searchCenter
                     zoom = DEFAULT_ZOOM
@@ -266,7 +266,7 @@ internal fun MosqueMapCanvas(
                 painter = painterResource(R.drawable.ic_location),
                 contentDescription = stringResource(R.string.ui_map_recenter),
                 modifier = Modifier.size(17.dp),
-                colorFilter = ColorFilter.tint(Purple800),
+                colorFilter = ColorFilter.tint(SurfaceWhite),
             )
         }
 
@@ -325,19 +325,27 @@ private fun MapButton(label: String, onClick: () -> Unit) {
         modifier = Modifier
             .size(32.dp)
             .clip(CircleShape)
-            .background(SurfaceWhite)
-            .border(1.dp, Purple300, CircleShape)
+            .background(mapButtonBrush())
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center,
     ) {
         Text(
             text = label,
-            color = Purple800,
+            color = SurfaceWhite,
             fontSize = 17.sp,
             fontWeight = FontWeight.Bold,
         )
     }
 }
+
+@Composable
+private fun mapButtonBrush(): Brush = Brush.horizontalGradient(
+    listOf(
+        colorResource(R.color.home_hero_start),
+        colorResource(R.color.home_hero_center),
+        colorResource(R.color.home_hero_end),
+    ),
+)
 
 
 /** Kedudukan piksel dunia (Web Mercator) bagi satu titik pada aras zum tertentu. */

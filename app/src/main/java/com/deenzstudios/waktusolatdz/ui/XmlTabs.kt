@@ -2,6 +2,8 @@ package com.deenzstudios.waktusolatdz.ui
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.LinearGradient
+import android.graphics.Shader
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.net.Uri
@@ -21,6 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.view.isVisible
+import androidx.core.content.ContextCompat
+import androidx.core.os.LocaleListCompat
+import androidx.appcompat.app.AppCompatDelegate
 import com.deenzstudios.waktusolatdz.R
 import com.deenzstudios.waktusolatdz.data.*
 import com.deenzstudios.waktusolatdz.databinding.*
@@ -88,11 +93,15 @@ private class ScheduleXmlView(context: Context) : FrameLayout(context) {
         val times = state.times
         binding.date.text = context.getString(R.string.ui_schedule_date,
             times.day, formatGregorianDate(times.date), times.zone)
-        val next = nextPrayerInfo(times, clock)
+        val fardSlots = listOf(PrayerTimeSlot.SUBUH, PrayerTimeSlot.ZOHOR, PrayerTimeSlot.ASAR,
+            PrayerTimeSlot.MAGHRIB, PrayerTimeSlot.ISYAK)
+        val current = fardSlots.lastOrNull { slot ->
+            slot.timeOf(times)?.let { minutesOfDay(it) <= clock.minutesOfDay() } == true
+        } ?: PrayerTimeSlot.ISYAK
         val rows = listOf(binding.prayerImsak, binding.prayerSubuh, binding.prayerSyuruk,
             binding.prayerDhuha, binding.prayerZohor, binding.prayerAsar, binding.prayerMaghrib, binding.prayerIsyak).map(::XmlPrayerRow)
         PrayerTimeSlot.entries.zip(rows).forEach { (slot, row) ->
-            row.root.isActivated = slot == next.slot && minutesOfDay(times.isha) > clock.minutesOfDay()
+            row.root.isActivated = slot == current
             row.time.text = slot.timeOf(times).orEmpty()
             row.status.isVisible = false
         }
@@ -222,6 +231,49 @@ private class SettingsXmlView(context: Context) : FrameLayout(context) {
     private val binding = ScreenSettingsBinding.inflate(LayoutInflater.from(context), this, true)
     private val detectButtonText = binding.detectLocation.text
     private var enabled = false
+
+    init {
+        val selectedLanguage = AppCompatDelegate.getApplicationLocales()[0]?.language
+            ?: context.resources.configuration.locales[0].language
+        binding.languageGroup.check(if (selectedLanguage == "en") R.id.language_english else R.id.language_malay)
+        binding.languageGroup.setOnCheckedChangeListener { _, id ->
+            val language = if (id == R.id.language_english) "en" else "ms"
+            if (language != selectedLanguage) {
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(language))
+            }
+        }
+        binding.languageHeader.setOnClickListener {
+            val expanded = !binding.languageContent.isVisible
+            binding.languageContent.isVisible = expanded
+            binding.languageArrow.rotation = if (expanded) 180f else 0f
+            binding.languageHeader.contentDescription = context.getString(
+                if (expanded) R.string.settings_language_collapse else R.string.settings_language_expand,
+            )
+        }
+        binding.notificationHeader.setOnClickListener {
+            val expanded = !binding.notificationContent.isVisible
+            binding.notificationContent.isVisible = expanded
+            binding.notificationArrow.rotation = if (expanded) 180f else 0f
+            binding.notificationHeader.setContentDescription(context.getString(
+                if (expanded) R.string.settings_notification_collapse
+                else R.string.settings_notification_expand,
+            ))
+        }
+        binding.studioCredit.addOnLayoutChangeListener { view, _, _, _, _, _, _, _, _ ->
+            val credit = view as TextView
+            val width = credit.paint.measureText(credit.text.toString()).coerceAtLeast(1f)
+            credit.paint.shader = LinearGradient(
+                0f, 0f, width, 0f,
+                intArrayOf(
+                    ContextCompat.getColor(context, R.color.home_hero_start),
+                    ContextCompat.getColor(context, R.color.home_hero_center),
+                    ContextCompat.getColor(context, R.color.home_hero_end),
+                ),
+                null, Shader.TileMode.CLAMP,
+            )
+            credit.invalidate()
+        }
+    }
 
     fun render(state: PrayerUiState, zone: String, location: LocationUiState,
         onDetect: () -> Unit, settings: NotificationSettings,

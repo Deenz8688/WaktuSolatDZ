@@ -1,6 +1,7 @@
 package com.deenzstudios.waktusolatdz.ui
 
 import android.content.Context
+import android.content.Intent
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.view.LayoutInflater
@@ -65,6 +66,12 @@ private class HomeXmlView(context: Context) : FrameLayout(context) {
     private val weatherAnimations = mutableListOf<Animator>()
 
     init {
+        binding.shortcutZikir.setOnClickListener {
+            context.startActivity(Intent(context, ZikirActivity::class.java))
+        }
+        binding.shortcutTasbih.setOnClickListener {
+            context.startActivity(Intent(context, TasbihActivity::class.java))
+        }
         binding.eventScroll.setOnTouchListener { view, event ->
             view.parent.requestDisallowInterceptTouchEvent(
                 event.actionMasked != MotionEvent.ACTION_UP && event.actionMasked != MotionEvent.ACTION_CANCEL,
@@ -146,7 +153,7 @@ private class HomeXmlView(context: Context) : FrameLayout(context) {
 
     private fun renderWeather() {
         val current = weather
-        binding.weatherGroup.isVisible = current != null
+        binding.weatherGroup.visibility = if (current != null) View.VISIBLE else View.INVISIBLE
         if (current == null) {
             stopWeatherAnimations()
             weatherAnimations.clear()

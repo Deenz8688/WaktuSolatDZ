@@ -2,7 +2,7 @@ package com.deenzstudios.waktusolatdz
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -12,11 +12,17 @@ import com.deenzstudios.waktusolatdz.ui.PrayerScreen
 import com.deenzstudios.waktusolatdz.ui.PrayerViewModel
 import com.deenzstudios.waktusolatdz.ui.theme.WaktuSolatDZTheme
 import com.deenzstudios.waktusolatdz.databinding.ActivityMainBinding
+import com.deenzstudios.waktusolatdz.widget.PrayerWidgetProvider
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     private val viewModel: PrayerViewModel by viewModels()
     private val mosqueViewModel: MosqueViewModel by viewModels()
+
+    override fun onResume() {
+        super.onResume()
+        PrayerWidgetProvider.updateAll(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

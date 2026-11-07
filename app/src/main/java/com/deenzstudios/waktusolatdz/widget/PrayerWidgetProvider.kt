@@ -10,6 +10,7 @@ import android.content.Intent
 import android.os.Build
 import android.view.View
 import android.widget.RemoteViews
+import androidx.core.content.ContextCompat
 import com.deenzstudios.waktusolatdz.MainActivity
 import com.deenzstudios.waktusolatdz.R
 import com.deenzstudios.waktusolatdz.data.PrayerCache
@@ -136,7 +137,8 @@ class PrayerWidgetProvider : AppWidgetProvider() {
         ) {
             if (ids.isEmpty()) return
             val weatherStore = WeatherStore(context)
-            manager.updateAppWidget(ids, buildViews(context, times, weatherStore.load()))
+            val localizedContext = ContextCompat.getContextForLanguage(context)
+            manager.updateAppWidget(ids, buildViews(localizedContext, times, weatherStore.load()))
             scheduleTicks(context, times)
             if (!weatherStore.isFresh()) refreshWeatherAsync(context)
         }
@@ -251,28 +253,34 @@ class PrayerWidgetProvider : AppWidgetProvider() {
         ): RemoteViews {
             val views = RemoteViews(context.packageName, R.layout.widget_prayer)
 
-            views.setTextViewText(R.id.widget_dates, datesLabel(times))
+            views.setTextViewText(R.id.widget_title, context.getString(R.string.app_name))
+            views.setTextViewText(R.id.widget_next_label, context.getString(R.string.widget_next_label))
+            views.setTextViewText(R.id.widget_dates, datesLabel(context, times))
             views.setTextViewText(R.id.widget_zone, zoneLabel(times.zone))
-            views.setTextViewText(R.id.widget_next, nextPrayer(times))
+            views.setTextViewText(R.id.widget_next, nextPrayer(context, times))
 
             val entries = prayerEntries(times)
             val current = currentPrayerLabel(entries)
+            val prayerNames = listOf(R.string.label_imsak, R.string.prayer_fajr, R.string.label_syuruk,
+                R.string.label_dhuha, R.string.prayer_dhuhr, R.string.prayer_asr,
+                R.string.prayer_maghrib, R.string.prayer_isha)
             applyWeather(views, weather)
             val density = context.resources.displayMetrics.density
             val padHorizontal = (3 * density).toInt()
             val padVertical = (2 * density).toInt()
 
-            entries.forEach { entry ->
+            entries.forEachIndexed { index, entry ->
                 val active = entry.label == current
+                views.setTextViewText(entry.labelViewId, context.getString(prayerNames[index]))
                 views.setTextViewText(entry.viewId, entry.time)
                 views.setTextColor(
                     entry.labelViewId,
-                    context.getColor(if (active) R.color.gold_900 else R.color.gold_text_muted),
+                    context.getColor(if (active) R.color.widget_primary else R.color.widget_muted),
                 )
 
                 if (active) {
-                    // Waktu solat semasa: teks krim atas pil emas.
-                    views.setTextColor(entry.viewId, context.getColor(R.color.cream))
+                    // Waktu solat semasa: teks ungu pada penanda cerah.
+                    views.setTextColor(entry.viewId, context.getColor(R.color.widget_highlight_text))
                     views.setInt(
                         entry.viewId,
                         "setBackgroundResource",
@@ -288,14 +296,14 @@ class PrayerWidgetProvider : AppWidgetProvider() {
                 } else {
                     // Padam penanda lama (jika RemoteViews diguna semula) supaya
                     // hanya satu waktu sahaja yang berkilau pada satu masa.
-                    views.setTextColor(entry.viewId, context.getColor(R.color.brown_text))
+                    views.setTextColor(entry.viewId, context.getColor(R.color.widget_primary))
                     views.setInt(entry.viewId, "setBackgroundResource", 0)
                     views.setViewPadding(entry.viewId, 0, 0, 0, 0)
                 }
             }
 
             views.setOnClickPendingIntent(R.id.widget_root, launchIntent(context))
-            views.setContentDescription(R.id.widget_root, widgetDescription(times))
+            views.setContentDescription(R.id.widget_root, widgetDescription(context, times))
 
             return views
         }
@@ -357,31 +365,46 @@ class PrayerWidgetProvider : AppWidgetProvider() {
         }
 
         /** Baris tarikh: Hijri dan Masihi, contoh "6 Rabiulakhir 1448H · 17 Oktober 2026". */
-        private fun datesLabel(times: PrayerTimes): String =
-            "${formatHijriDate(times.hijriDate)} · ${formatGregorianDate(times.date)}"
+        private fun datesLabel(context: Context, times: PrayerTimes): String {
+            val date = times.date.split("-")
+            val gregorian = if (context.resources.configuration.locales[0].language == "en" && date.size == 3) {
+                val months = mapOf("Jan" to "January", "Feb" to "February", "Mac" to "March",
+                    "Apr" to "April", "Mei" to "May", "Jun" to "June", "Jul" to "July",
+                    "Ogos" to "August", "Sep" to "September", "Okt" to "October",
+                    "Nov" to "November", "Dis" to "December")
+                "${date[0].toIntOrNull() ?: date[0]} ${months[date[1]] ?: date[1]} ${date[2]}"
+            } else formatGregorianDate(times.date)
+            return "${formatHijriDate(times.hijriDate)} · $gregorian"
+        }
 
-        private fun nextPrayer(times: PrayerTimes): String {
+        private fun nextPrayer(context: Context, times: PrayerTimes): String {
             val now = Calendar.getInstance()
             val nowMinutes = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE)
 
             val slots = listOf(
-                "Subuh" to times.fajr,
-                "Zohor" to times.dhuhr,
-                "Asar" to times.asr,
-                "Maghrib" to times.maghrib,
-                "Isyak" to times.isha,
+                R.string.prayer_fajr to times.fajr,
+                R.string.prayer_dhuhr to times.dhuhr,
+                R.string.prayer_asr to times.asr,
+                R.string.prayer_maghrib to times.maghrib,
+                R.string.prayer_isha to times.isha,
             )
             val next = slots.firstOrNull { (_, time) -> time.toMinutesOfDay() > nowMinutes }
-                ?: return "Subuh · ${times.fajr} (esok)"
+                ?: return context.getString(R.string.widget_next_tomorrow, context.getString(R.string.prayer_fajr), times.fajr)
 
-            return "${next.first} · ${next.second}"
+            return "${context.getString(next.first)} · ${next.second}"
         }
 
-        private fun widgetDescription(times: PrayerTimes): String =
-            "${datesLabel(times)}. Solat seterusnya ${nextPrayer(times)}. " +
-                "Imsak ${times.imsak}, Subuh ${times.fajr}, Syuruk ${times.syuruk}, " +
-                "Dhuha ${times.dhuha}, Zohor ${times.dhuhr}, Asar ${times.asr}, " +
-                "Maghrib ${times.maghrib}, Isyak ${times.isha}."
+        private fun widgetDescription(context: Context, times: PrayerTimes): String {
+            val rows = prayerEntries(times)
+            val names = listOf(R.string.label_imsak, R.string.prayer_fajr, R.string.label_syuruk,
+                R.string.label_dhuha, R.string.prayer_dhuhr, R.string.prayer_asr,
+                R.string.prayer_maghrib, R.string.prayer_isha)
+            val readings = rows.zip(names).joinToString(", ") { (entry, name) ->
+                "${context.getString(name)} ${entry.time}"
+            }
+            return context.getString(R.string.widget_accessible_summary,
+                datesLabel(context, times), nextPrayer(context, times), readings)
+        }
 
         private fun launchIntent(context: Context): PendingIntent {
             val intent = Intent(context, MainActivity::class.java).apply {

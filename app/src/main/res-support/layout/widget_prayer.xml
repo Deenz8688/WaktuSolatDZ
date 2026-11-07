@@ -27,7 +27,7 @@
             android:letterSpacing="0.04"
             android:maxLines="1"
             android:text="@string/app_name"
-            android:textColor="@color/gold_900"
+            android:textColor="@color/widget_primary"
             android:textSize="13sp"
             android:textStyle="bold" />
 
@@ -46,7 +46,7 @@
             android:includeFontPadding="false"
             android:maxLines="1"
             android:text="@string/widget_dates_sample"
-            android:textColor="@color/gold_text_muted"
+            android:textColor="@color/widget_muted"
             android:textSize="8.5sp" />
 
         <!-- Solat seterusnya -->
@@ -65,7 +65,7 @@
             android:letterSpacing="0.12"
             android:maxLines="1"
             android:text="@string/widget_next_label"
-            android:textColor="@color/gold_text_muted"
+            android:textColor="@color/widget_muted"
             android:textSize="8sp"
             android:textStyle="bold" />
 
@@ -83,7 +83,7 @@
             android:includeFontPadding="false"
             android:maxLines="1"
             android:text="@string/widget_next_sample"
-            android:textColor="@color/gold_900"
+            android:textColor="@color/widget_primary"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -115,7 +115,7 @@
                 android:paddingTop="4dp"
                 android:paddingEnd="12dp"
                 android:paddingBottom="4dp"
-                android:textColor="@color/cream"
+                android:textColor="@color/widget_highlight_text"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -126,7 +126,7 @@
                 android:layout_marginStart="16dp"
                 android:contentDescription="@string/cd_weather"
                 android:src="@drawable/ic_weather_partly"
-                android:tint="@color/gold_800" />
+                android:tint="@color/widget_primary" />
 
             <TextView
                 android:id="@+id/widget_temp"
@@ -141,7 +141,7 @@
                 android:maxLines="1"
                 android:maxWidth="96dp"
                 android:text="@string/widget_temp_sample"
-                android:textColor="@color/brown_text"
+                android:textColor="@color/widget_primary"
                 android:textSize="21sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -176,7 +176,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/label_imsak"
-                    android:textColor="@color/gold_text_muted"
+                    android:textColor="@color/widget_muted"
                     android:textSize="8sp" />
 
                 <TextView
@@ -193,7 +193,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/widget_time_sample_fajr"
-                    android:textColor="@color/brown_text"
+                    android:textColor="@color/widget_primary"
                     android:textSize="11sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -218,7 +218,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/prayer_fajr"
-                    android:textColor="@color/gold_text_muted"
+                    android:textColor="@color/widget_muted"
                     android:textSize="8sp" />
 
                 <TextView
@@ -235,7 +235,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/widget_time_sample_fajr"
-                    android:textColor="@color/brown_text"
+                    android:textColor="@color/widget_primary"
                     android:textSize="11sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -260,7 +260,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/label_syuruk"
-                    android:textColor="@color/gold_text_muted"
+                    android:textColor="@color/widget_muted"
                     android:textSize="8sp" />
 
                 <TextView
@@ -277,7 +277,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/widget_time_sample_fajr"
-                    android:textColor="@color/brown_text"
+                    android:textColor="@color/widget_primary"
                     android:textSize="11sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -302,7 +302,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/label_dhuha"
-                    android:textColor="@color/gold_text_muted"
+                    android:textColor="@color/widget_muted"
                     android:textSize="8sp" />
 
                 <TextView
@@ -319,7 +319,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/widget_time_sample_fajr"
-                    android:textColor="@color/brown_text"
+                    android:textColor="@color/widget_primary"
                     android:textSize="11sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -344,7 +344,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/prayer_dhuhr"
-                    android:textColor="@color/gold_text_muted"
+                    android:textColor="@color/widget_muted"
                     android:textSize="8sp" />
 
                 <TextView
@@ -361,7 +361,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/widget_time_sample_dhuhr"
-                    android:textColor="@color/brown_text"
+                    android:textColor="@color/widget_primary"
                     android:textSize="11sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -386,7 +386,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/prayer_asr"
-                    android:textColor="@color/gold_text_muted"
+                    android:textColor="@color/widget_muted"
                     android:textSize="8sp" />
 
                 <TextView
@@ -403,7 +403,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/widget_time_sample_asr"
-                    android:textColor="@color/brown_text"
+                    android:textColor="@color/widget_primary"
                     android:textSize="11sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -428,7 +428,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/prayer_maghrib"
-                    android:textColor="@color/gold_text_muted"
+                    android:textColor="@color/widget_muted"
                     android:textSize="8sp" />
 
                 <TextView
@@ -445,7 +445,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/widget_time_sample_maghrib"
-                    android:textColor="@color/brown_text"
+                    android:textColor="@color/widget_primary"
                     android:textSize="11sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -470,7 +470,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/prayer_isha"
-                    android:textColor="@color/gold_text_muted"
+                    android:textColor="@color/widget_muted"
                     android:textSize="8sp" />
 
                 <TextView
@@ -487,7 +487,7 @@
                     android:includeFontPadding="false"
                     android:maxLines="1"
                     android:text="@string/widget_time_sample_isha"
-                    android:textColor="@color/brown_text"
+                    android:textColor="@color/widget_primary"
                     android:textSize="11sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -502,7 +502,7 @@
             android:layout_marginTop="5dp"
             android:contentDescription="@string/cd_location"
             android:src="@drawable/ic_location"
-            android:tint="@color/gold_800" />
+            android:tint="@color/widget_primary" />
 
         <TextView
             android:id="@+id/widget_zone"
@@ -518,7 +518,7 @@
             android:includeFontPadding="false"
             android:maxLines="1"
             android:text="@string/widget_zone_sample"
-            android:textColor="@color/gold_800"
+            android:textColor="@color/widget_primary"
             android:textSize="8.5sp" />
     </LinearLayout>
 </FrameLayout>

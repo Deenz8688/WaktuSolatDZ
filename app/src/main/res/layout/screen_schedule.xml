@@ -6,20 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@drawable/bg_schedule"
+    android:background="@android:color/white"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
     android:paddingTop="56dp"
     android:paddingBottom="24dp"
+    android:clipChildren="false"
     android:clipToPadding="false">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipChildren="false"
         android:orientation="vertical">
         <TextView
             style="@style/HomeHeading"
             android:textSize="22sp"
-            android:text="Waktu Solat" />
+            android:text="@string/lang_text_002" />
         <TextView
             style="@style/HomeMuted"
             android:layout_marginTop="6dp"
@@ -31,6 +33,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/bg_home_card"
+            android:elevation="4dp"
             android:padding="24dp"
             android:gravity="center_horizontal"
             android:id="@+id/status">
@@ -43,7 +46,7 @@
                 style="@style/HomeText"
                 android:layout_marginTop="12dp"
                 android:gravity="center"
-                android:text="Memuatkan waktu solat…"
+                android:text="@string/lang_text_034"
                 android:id="@+id/title" />
             <TextView
                 style="@style/HomeMuted"
@@ -51,22 +54,23 @@
                 android:gravity="center"
                 android:visibility="gone"
                 android:id="@+id/message"
-                android:text="Tidak dapat memuatkan data." />
+                android:text="@string/lang_text_035" />
             <Button
                 android:id="@+id/retry"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="48dp"
-                android:text="Cuba lagi"
+                android:text="@string/lang_text_036"
                 android:textAllCaps="false"
-                android:textColor="@color/home_purple" />
+                android:textColor="@color/home_purple"  tools:textSize="14sp" tools:gravity="center"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/bg_home_card"
+            android:elevation="4dp"
             android:padding="20dp"
             android:layout_marginTop="16dp"
             android:id="@+id/schedule_rows">
@@ -75,30 +79,17 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_home_prayer_row"
+                android:background="@drawable/bg_schedule_row"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:paddingTop="14dp"
                 android:paddingBottom="14dp"
                 android:id="@+id/prayer_imsak">
-                <TextView
-                    android:id="@+id/prayer_imsak_number"
-                    style="@style/HomeText"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:textSize="11sp"
-                    android:background="@drawable/bg_home_prayer_number"
-                    android:textColor="@color/home_prayer_number"
-                    android:duplicateParentState="true"
-                    android:text="1"
-                    tools:text="1"
-                    android:tag="prayer_number" />
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="0dp"
                     android:duplicateParentState="true"
                     android:orientation="vertical">
                     <TextView
@@ -106,7 +97,7 @@
                         style="@style/HomeText"
                         android:textSize="14sp"
                         android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/home_prayer_text"
+                        android:textColor="@color/schedule_prayer_text"
                         android:duplicateParentState="true"
                         android:text="Imsak"
                         tools:text="Imsak"
@@ -116,7 +107,7 @@
                         style="@style/HomeMuted"
                         android:textSize="10sp"
                         android:layout_marginTop="2dp"
-                        android:text="Seterusnya"
+                        android:text="@string/lang_text_037"
                         tools:text="Seterusnya"
                         android:tag="prayer_status"
                         android:visibility="gone"
@@ -128,7 +119,7 @@
                     android:layout_marginStart="8dp"
                     android:textSize="18sp"
                     android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/home_prayer_text"
+                    android:textColor="@color/schedule_prayer_text"
                     android:duplicateParentState="true"
                     android:text="05:40"
                     tools:text="05:40"
@@ -139,30 +130,17 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_home_prayer_row"
+                android:background="@drawable/bg_schedule_row"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:paddingTop="14dp"
                 android:paddingBottom="14dp"
                 android:id="@+id/prayer_subuh">
-                <TextView
-                    android:id="@+id/prayer_subuh_number"
-                    style="@style/HomeText"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:textSize="11sp"
-                    android:background="@drawable/bg_home_prayer_number"
-                    android:textColor="@color/home_prayer_number"
-                    android:duplicateParentState="true"
-                    android:text="2"
-                    tools:text="2"
-                    android:tag="prayer_number" />
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="0dp"
                     android:duplicateParentState="true"
                     android:orientation="vertical">
                     <TextView
@@ -170,9 +148,9 @@
                         style="@style/HomeText"
                         android:textSize="14sp"
                         android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/home_prayer_text"
+                        android:textColor="@color/schedule_prayer_text"
                         android:duplicateParentState="true"
-                        android:text="Subuh"
+                        android:text="@string/lang_text_052"
                         tools:text="Subuh"
                         android:tag="prayer_name" />
                     <TextView
@@ -180,7 +158,7 @@
                         style="@style/HomeMuted"
                         android:textSize="10sp"
                         android:layout_marginTop="2dp"
-                        android:text="Seterusnya"
+                        android:text="@string/lang_text_037"
                         tools:text="Seterusnya"
                         android:tag="prayer_status"
                         android:visibility="gone"
@@ -192,7 +170,7 @@
                     android:layout_marginStart="8dp"
                     android:textSize="18sp"
                     android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/home_prayer_text"
+                    android:textColor="@color/schedule_prayer_text"
                     android:duplicateParentState="true"
                     android:text="05:50"
                     tools:text="05:50"
@@ -203,30 +181,17 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_home_prayer_row"
+                android:background="@drawable/bg_schedule_row"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:paddingTop="14dp"
                 android:paddingBottom="14dp"
                 android:id="@+id/prayer_syuruk">
-                <TextView
-                    android:id="@+id/prayer_syuruk_number"
-                    style="@style/HomeText"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:textSize="11sp"
-                    android:background="@drawable/bg_home_prayer_number"
-                    android:textColor="@color/home_prayer_number"
-                    android:duplicateParentState="true"
-                    android:text="3"
-                    tools:text="3"
-                    android:tag="prayer_number" />
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="0dp"
                     android:duplicateParentState="true"
                     android:orientation="vertical">
                     <TextView
@@ -234,9 +199,9 @@
                         style="@style/HomeText"
                         android:textSize="14sp"
                         android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/home_prayer_text"
+                        android:textColor="@color/schedule_prayer_text"
                         android:duplicateParentState="true"
-                        android:text="Syuruk"
+                        android:text="@string/lang_text_056"
                         tools:text="Syuruk"
                         android:tag="prayer_name" />
                     <TextView
@@ -244,7 +209,7 @@
                         style="@style/HomeMuted"
                         android:textSize="10sp"
                         android:layout_marginTop="2dp"
-                        android:text="Seterusnya"
+                        android:text="@string/lang_text_037"
                         tools:text="Seterusnya"
                         android:tag="prayer_status"
                         android:visibility="gone"
@@ -256,7 +221,7 @@
                     android:layout_marginStart="8dp"
                     android:textSize="18sp"
                     android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/home_prayer_text"
+                    android:textColor="@color/schedule_prayer_text"
                     android:duplicateParentState="true"
                     android:text="06:58"
                     tools:text="06:58"
@@ -267,30 +232,17 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_home_prayer_row"
+                android:background="@drawable/bg_schedule_row"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:paddingTop="14dp"
                 android:paddingBottom="14dp"
                 android:id="@+id/prayer_dhuha">
-                <TextView
-                    android:id="@+id/prayer_dhuha_number"
-                    style="@style/HomeText"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:textSize="11sp"
-                    android:background="@drawable/bg_home_prayer_number"
-                    android:textColor="@color/home_prayer_number"
-                    android:duplicateParentState="true"
-                    android:text="4"
-                    tools:text="4"
-                    android:tag="prayer_number" />
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="0dp"
                     android:duplicateParentState="true"
                     android:orientation="vertical">
                     <TextView
@@ -298,7 +250,7 @@
                         style="@style/HomeText"
                         android:textSize="14sp"
                         android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/home_prayer_text"
+                        android:textColor="@color/schedule_prayer_text"
                         android:duplicateParentState="true"
                         android:text="Dhuha"
                         tools:text="Dhuha"
@@ -308,7 +260,7 @@
                         style="@style/HomeMuted"
                         android:textSize="10sp"
                         android:layout_marginTop="2dp"
-                        android:text="Seterusnya"
+                        android:text="@string/lang_text_037"
                         tools:text="Seterusnya"
                         android:tag="prayer_status"
                         android:visibility="gone"
@@ -320,7 +272,7 @@
                     android:layout_marginStart="8dp"
                     android:textSize="18sp"
                     android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/home_prayer_text"
+                    android:textColor="@color/schedule_prayer_text"
                     android:duplicateParentState="true"
                     android:text="07:26"
                     tools:text="07:26"
@@ -331,30 +283,17 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_home_prayer_row"
+                android:background="@drawable/bg_schedule_row"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:paddingTop="14dp"
                 android:paddingBottom="14dp"
                 android:id="@+id/prayer_zohor">
-                <TextView
-                    android:id="@+id/prayer_zohor_number"
-                    style="@style/HomeText"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:textSize="11sp"
-                    android:background="@drawable/bg_home_prayer_number"
-                    android:textColor="@color/home_prayer_number"
-                    android:duplicateParentState="true"
-                    android:text="5"
-                    tools:text="5"
-                    android:tag="prayer_number" />
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="0dp"
                     android:duplicateParentState="true"
                     android:orientation="vertical">
                     <TextView
@@ -362,9 +301,9 @@
                         style="@style/HomeText"
                         android:textSize="14sp"
                         android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/home_prayer_text"
+                        android:textColor="@color/schedule_prayer_text"
                         android:duplicateParentState="true"
-                        android:text="Zohor"
+                        android:text="@string/lang_text_053"
                         tools:text="Zohor"
                         android:tag="prayer_name" />
                     <TextView
@@ -372,7 +311,7 @@
                         style="@style/HomeMuted"
                         android:textSize="10sp"
                         android:layout_marginTop="2dp"
-                        android:text="Seterusnya"
+                        android:text="@string/lang_text_037"
                         tools:text="Seterusnya"
                         android:tag="prayer_status"
                         android:visibility="gone"
@@ -384,7 +323,7 @@
                     android:layout_marginStart="8dp"
                     android:textSize="18sp"
                     android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/home_prayer_text"
+                    android:textColor="@color/schedule_prayer_text"
                     android:duplicateParentState="true"
                     android:text="13:01"
                     tools:text="13:01"
@@ -395,30 +334,17 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_home_prayer_row"
+                android:background="@drawable/bg_schedule_row"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:paddingTop="14dp"
                 android:paddingBottom="14dp"
                 android:id="@+id/prayer_asar">
-                <TextView
-                    android:id="@+id/prayer_asar_number"
-                    style="@style/HomeText"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:textSize="11sp"
-                    android:background="@drawable/bg_home_prayer_number"
-                    android:textColor="@color/home_prayer_number"
-                    android:duplicateParentState="true"
-                    android:text="6"
-                    tools:text="6"
-                    android:tag="prayer_number" />
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="0dp"
                     android:duplicateParentState="true"
                     android:orientation="vertical">
                     <TextView
@@ -426,9 +352,9 @@
                         style="@style/HomeText"
                         android:textSize="14sp"
                         android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/home_prayer_text"
+                        android:textColor="@color/schedule_prayer_text"
                         android:duplicateParentState="true"
-                        android:text="Asar"
+                        android:text="@string/lang_text_054"
                         tools:text="Asar"
                         android:tag="prayer_name" />
                     <TextView
@@ -436,7 +362,7 @@
                         style="@style/HomeMuted"
                         android:textSize="10sp"
                         android:layout_marginTop="2dp"
-                        android:text="Seterusnya"
+                        android:text="@string/lang_text_037"
                         tools:text="Seterusnya"
                         android:tag="prayer_status"
                         android:visibility="gone"
@@ -448,7 +374,7 @@
                     android:layout_marginStart="8dp"
                     android:textSize="18sp"
                     android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/home_prayer_text"
+                    android:textColor="@color/schedule_prayer_text"
                     android:duplicateParentState="true"
                     android:text="16:18"
                     tools:text="16:18"
@@ -459,30 +385,17 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_home_prayer_row"
+                android:background="@drawable/bg_schedule_row"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:paddingTop="14dp"
                 android:paddingBottom="14dp"
                 android:id="@+id/prayer_maghrib">
-                <TextView
-                    android:id="@+id/prayer_maghrib_number"
-                    style="@style/HomeText"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:textSize="11sp"
-                    android:background="@drawable/bg_home_prayer_number"
-                    android:textColor="@color/home_prayer_number"
-                    android:duplicateParentState="true"
-                    android:text="7"
-                    tools:text="7"
-                    android:tag="prayer_number" />
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="0dp"
                     android:duplicateParentState="true"
                     android:orientation="vertical">
                     <TextView
@@ -490,7 +403,7 @@
                         style="@style/HomeText"
                         android:textSize="14sp"
                         android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/home_prayer_text"
+                        android:textColor="@color/schedule_prayer_text"
                         android:duplicateParentState="true"
                         android:text="Maghrib"
                         tools:text="Maghrib"
@@ -500,7 +413,7 @@
                         style="@style/HomeMuted"
                         android:textSize="10sp"
                         android:layout_marginTop="2dp"
-                        android:text="Seterusnya"
+                        android:text="@string/lang_text_037"
                         tools:text="Seterusnya"
                         android:tag="prayer_status"
                         android:visibility="gone"
@@ -512,7 +425,7 @@
                     android:layout_marginStart="8dp"
                     android:textSize="18sp"
                     android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/home_prayer_text"
+                    android:textColor="@color/schedule_prayer_text"
                     android:duplicateParentState="true"
                     android:text="19:01"
                     tools:text="19:01"
@@ -523,30 +436,17 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_home_prayer_row"
+                android:background="@drawable/bg_schedule_row"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:paddingTop="14dp"
                 android:paddingBottom="14dp"
                 android:id="@+id/prayer_isyak">
-                <TextView
-                    android:id="@+id/prayer_isyak_number"
-                    style="@style/HomeText"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:textSize="11sp"
-                    android:background="@drawable/bg_home_prayer_number"
-                    android:textColor="@color/home_prayer_number"
-                    android:duplicateParentState="true"
-                    android:text="8"
-                    tools:text="8"
-                    android:tag="prayer_number" />
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="12dp"
+                    android:layout_marginStart="0dp"
                     android:duplicateParentState="true"
                     android:orientation="vertical">
                     <TextView
@@ -554,9 +454,9 @@
                         style="@style/HomeText"
                         android:textSize="14sp"
                         android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/home_prayer_text"
+                        android:textColor="@color/schedule_prayer_text"
                         android:duplicateParentState="true"
-                        android:text="Isyak"
+                        android:text="@string/lang_text_055"
                         tools:text="Isyak"
                         android:tag="prayer_name" />
                     <TextView
@@ -564,7 +464,7 @@
                         style="@style/HomeMuted"
                         android:textSize="10sp"
                         android:layout_marginTop="2dp"
-                        android:text="Seterusnya"
+                        android:text="@string/lang_text_037"
                         tools:text="Seterusnya"
                         android:tag="prayer_status"
                         android:visibility="gone"
@@ -576,7 +476,7 @@
                     android:layout_marginStart="8dp"
                     android:textSize="18sp"
                     android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/home_prayer_text"
+                    android:textColor="@color/schedule_prayer_text"
                     android:duplicateParentState="true"
                     android:text="20:11"
                     tools:text="20:11"
@@ -585,9 +485,11 @@
         </LinearLayout>
         <TextView
             style="@style/HomeMuted"
+            android:layout_width="match_parent"
             android:layout_marginTop="16dp"
+            android:gravity="center"
             android:textSize="10sp"
             android:id="@+id/source"
-            android:text="Waktu tempatan · Sumber e-Solat JAKIM" />
+            android:text="@string/lang_text_033" />
     </LinearLayout>
 </ScrollView>
