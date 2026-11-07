@@ -18,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import java.io.IOException
 import java.util.Calendar
 
 /**
@@ -31,9 +32,6 @@ class PrayerAlarmScheduler(context: Context) {
     private val preferences = NotificationPreferences(appContext)
     private val zones = ZonePreferences(appContext)
     private val store = NotificationScheduleStore(appContext)
-
-    /** Elakkan dua proses menjadualkan semula pada masa yang sama. */
-    private val mutex = Mutex()
 
     /**
      * Ambil jadual terbaru daripada JAKIM dan pasang semula semua alarm.
@@ -58,9 +56,16 @@ class PrayerAlarmScheduler(context: Context) {
             // Ambil jadual baru DAHULU. Alarm lama hanya dibatalkan selepas data
             // baru tersedia, jadi notifikasi tidak hilang jika rangkaian gagal
             // atau app ditutup (di-clear) semasa permintaan sedang berjalan.
-            val week = repository.getWeek(zones.selectedZone)
+            val requestedZone = zones.selectedZone
+            val week = repository.getWeek(requestedZone)
             val events = buildEvents(week, settings)
 
+            // Settings or zone may change while the network request is in flight.
+            if (preferences.settings() != settings || zones.selectedZone != requestedZone) {
+                return@withLock 0
+            }
+            // Never replace a working schedule with unusable or empty API data.
+            if (events.isEmpty()) throw IOException("Tiada jadual notifikasi masa depan yang sah")
             cancelEvents()
             store.save(events)
             events.forEach(::arm)
@@ -270,6 +275,8 @@ class PrayerAlarmScheduler(context: Context) {
         Build.VERSION.SDK_INT < Build.VERSION_CODES.S || alarmManager.canScheduleExactAlarms()
 
     private companion object {
+        /** Shared across all scheduler instances in this app process. */
+        val mutex = Mutex()
         const val ALARM_CODE_BASE = 100
         const val NOTIFICATION_ID_BASE = 1_000
         const val CODES_PER_DAY = 16
@@ -286,6 +293,11 @@ class PrayerAlarmScheduler(context: Context) {
             "jun" to Calendar.JUNE,
             "jul" to Calendar.JULY,
             "ogo" to Calendar.AUGUST,
+            "ogos" to Calendar.AUGUST,
+            "aug" to Calendar.AUGUST,
+            "mar" to Calendar.MARCH,
+            "may" to Calendar.MAY,
+            "dec" to Calendar.DECEMBER,
             "sep" to Calendar.SEPTEMBER,
             "okt" to Calendar.OCTOBER,
             "nov" to Calendar.NOVEMBER,
@@ -310,6 +322,7 @@ class PrayerAlarmScheduler(context: Context) {
             if (parts.size < 2) return null
             val hour = parts[0].toIntOrNull() ?: return null
             val minute = parts[1].toIntOrNull() ?: return null
+            if (hour !in 0..23 || minute !in 0..59) return null
             return hour * 60 + minute
         }
     }

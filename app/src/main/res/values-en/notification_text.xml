@@ -1,0 +1,34 @@
+<resources>
+    <string name="notification_channel_reminder">Prayer Reminders</string>
+    <string name="notification_channel_reminder_description">%1$d minutes before prayer time</string>
+    <string name="notification_channel_ontime">Prayer Times</string>
+    <string name="notification_channel_ontime_description">Notifications at prayer time</string>
+    <string name="notification_channel_event">Islamic Dates</string>
+    <string name="notification_channel_event_description">Notifications at the start of important Islamic dates</string>
+    <string name="notification_reminder_title">%1$s in %2$d minutes</string>
+    <string name="notification_reminder_body">%1$s begins at %2$s • %3$s</string>
+    <string name="notification_ontime_title">It is time for %1$s</string>
+    <string name="notification_ontime_body">%1$s • %2$s. It is time to pray.</string>
+    <string-array name="notification_event_titles">
+        <item>Happy Islamic New Year</item>
+        <item>Today is Ashura</item>
+        <item>Observing Mawlid</item>
+        <item>Today is Isra and Mikraj</item>
+        <item>Welcome Ramadan</item>
+        <item>Today is Nuzul Al-Quran</item>
+        <item>Happy Eid al-Fitr</item>
+        <item>Today is the Day of Arafah</item>
+        <item>Happy Eid al-Adha</item>
+    </string-array>
+    <string-array name="notification_event_messages">
+        <item>Awal Muharram — may the new year be better than the last.</item>
+        <item>10 Muharram — fasting on Ashura is encouraged.</item>
+        <item>12 Rabiulawal — blessings and peace upon Prophet Muhammad SAW.</item>
+        <item>27 Rejab — remembering the night journey of Prophet Muhammad SAW.</item>
+        <item>1 Ramadan — may Allah accept our fasting.</item>
+        <item>17 Ramadan — remembering the revelation of the Quran.</item>
+        <item>1 Syawal — Eid greetings from Waktu Solat DZ.</item>
+        <item>9 Zulhijjah — a day for prayer and fasting.</item>
+        <item>10 Zulhijjah — may your acts of worship be accepted.</item>
+    </string-array>
+</resources>

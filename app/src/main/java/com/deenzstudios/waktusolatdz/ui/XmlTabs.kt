@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.LinearGradient
 import android.graphics.Shader
+import android.media.AudioAttributes
+import android.media.MediaPlayer
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.net.Uri
@@ -14,6 +16,10 @@ import android.view.View
 import android.widget.CompoundButton
 import android.widget.FrameLayout
 import android.widget.TextView
+import android.widget.AdapterView
+import android.widget.Spinner
+import android.widget.ImageButton
+import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -26,6 +32,9 @@ import androidx.core.view.isVisible
 import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.deenzstudios.waktusolatdz.R
 import com.deenzstudios.waktusolatdz.data.*
 import com.deenzstudios.waktusolatdz.databinding.*
@@ -231,8 +240,40 @@ private class SettingsXmlView(context: Context) : FrameLayout(context) {
     private val binding = ScreenSettingsBinding.inflate(LayoutInflater.from(context), this, true)
     private val detectButtonText = binding.detectLocation.text
     private var enabled = false
+    private var previewPlayer: MediaPlayer? = null
+    private var previewButton: ImageButton? = null
+    private val previewLifecycleObserver = LifecycleEventObserver { _, event ->
+        if (event == Lifecycle.Event.ON_STOP) stopAzanPreview()
+    }
 
     init {
+        listOf(
+            binding.previewFajr to R.raw.azan_subuh,
+            binding.previewDhuhr to R.raw.azan_mekah_audio,
+            binding.previewAsr to R.raw.azan_mekah_audio,
+            binding.previewMaghrib to R.raw.azan_mekah_audio,
+            binding.previewIsha to R.raw.azan_mekah_audio,
+        ).forEach { (button, audio) ->
+            button.setOnClickListener { toggleAzanPreview(button, audio) }
+        }
+        val soundPreferences = NotificationPreferences(context)
+        listOf(
+            Triple(binding.soundFajr, PrayerTimeSlot.SUBUH, listOf("normal", "azan", "silent")),
+            Triple(binding.soundDhuhr, PrayerTimeSlot.ZOHOR, listOf("normal", "azan", "silent")),
+            Triple(binding.soundAsr, PrayerTimeSlot.ASAR, listOf("normal", "azan", "silent")),
+            Triple(binding.soundMaghrib, PrayerTimeSlot.MAGHRIB, listOf("normal", "azan", "silent")),
+            Triple(binding.soundIsha, PrayerTimeSlot.ISYAK, listOf("normal", "azan", "silent")),
+        ).forEach { (spinner, slot, modes) ->
+            spinner.setSelection(modes.indexOf(soundPreferences.soundMode(slot)).coerceAtLeast(0))
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    modes.getOrNull(position)?.let { mode ->
+                        if (soundPreferences.soundMode(slot) != mode) soundPreferences.setSoundMode(slot, mode)
+                    }
+                }
+            }
+        }
         val selectedLanguage = AppCompatDelegate.getApplicationLocales()[0]?.language
             ?: context.resources.configuration.locales[0].language
         binding.languageGroup.check(if (selectedLanguage == "en") R.id.language_english else R.id.language_malay)
@@ -252,6 +293,7 @@ private class SettingsXmlView(context: Context) : FrameLayout(context) {
         }
         binding.notificationHeader.setOnClickListener {
             val expanded = !binding.notificationContent.isVisible
+            if (!expanded) stopAzanPreview()
             binding.notificationContent.isVisible = expanded
             binding.notificationArrow.rotation = if (expanded) 180f else 0f
             binding.notificationHeader.setContentDescription(context.getString(
@@ -273,6 +315,60 @@ private class SettingsXmlView(context: Context) : FrameLayout(context) {
             )
             credit.invalidate()
         }
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        findViewTreeLifecycleOwner()?.lifecycle?.addObserver(previewLifecycleObserver)
+    }
+
+    override fun onDetachedFromWindow() {
+        findViewTreeLifecycleOwner()?.lifecycle?.removeObserver(previewLifecycleObserver)
+        stopAzanPreview()
+        super.onDetachedFromWindow()
+    }
+
+    private fun toggleAzanPreview(button: ImageButton, audio: Int) {
+        if (previewButton === button) {
+            stopAzanPreview()
+            return
+        }
+        stopAzanPreview()
+        try {
+            val descriptor = resources.openRawResourceFd(audio)
+                ?: throw IllegalStateException("Audio unavailable")
+            val media = MediaPlayer()
+            previewPlayer = media
+            previewButton = button
+            button.setImageResource(R.drawable.ic_adhan_stop)
+            button.contentDescription = context.getString(R.string.adhan_preview_stop)
+            media.setAudioAttributes(
+                AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_MEDIA)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH).build(),
+            )
+            descriptor.use { media.setDataSource(it.fileDescriptor, it.startOffset, it.length) }
+            media.setOnPreparedListener { it.start() }
+            media.setOnCompletionListener { stopAzanPreview() }
+            media.setOnErrorListener { _, _, _ ->
+                stopAzanPreview()
+                Toast.makeText(context, R.string.adhan_preview_failed, Toast.LENGTH_SHORT).show()
+                true
+            }
+            media.prepareAsync()
+        } catch (_: Exception) {
+            stopAzanPreview()
+            Toast.makeText(context, R.string.adhan_preview_failed, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun stopAzanPreview() {
+        previewPlayer?.release()
+        previewPlayer = null
+        previewButton?.apply {
+            setImageResource(R.drawable.ic_adhan_play)
+            contentDescription = context.getString(R.string.adhan_preview_play)
+        }
+        previewButton = null
     }
 
     fun render(state: PrayerUiState, zone: String, location: LocationUiState,

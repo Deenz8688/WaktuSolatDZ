@@ -1,0 +1,17 @@
+<resources>
+    <string name="adhan_settings_title">Prayer time sound</string>
+    <string name="adhan_settings_note">Choose a sound for each obligatory prayer. The five-minute reminder uses the normal sound.</string>
+    <string-array name="adhan_modes">
+        <item>Normal sound</item>
+        <item>Mecca adhan</item>
+        <item>Silent</item>
+    </string-array>
+    <string name="adhan_playing_channel">Adhan playback</string>
+    <string name="adhan_playing_title">Adhan is playing</string>
+    <string name="adhan_stop">Stop adhan</string>
+    <string name="adhan_preview_play">Play adhan sample</string>
+    <string name="adhan_preview_stop">Stop adhan sample</string>
+    <string name="adhan_preview_failed">The adhan audio could not be played.</string>
+    <string name="adhan_silent_channel">Prayer time — silent</string>
+    <string name="adhan_credit">Mecca adhan: Seyfula Islam, CC BY 3.0. Audio extracted, converted to MP3 and trimmed by approximately 8.5 seconds at the beginning. Source: https://commons.wikimedia.org/wiki/File:Adhan,_Great_Mosque_of_Mecca_-_Jan_21,_2013.webm\nLicence: https://creativecommons.org/licenses/by/3.0/\nFajr adhan: Sheikh Ali Mullah, source: https://archive.org/details/MakkahFajrAdhan6913SheikhAliMullah</string>
+</resources>

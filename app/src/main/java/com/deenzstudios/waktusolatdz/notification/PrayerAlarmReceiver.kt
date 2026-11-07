@@ -3,7 +3,11 @@ package com.deenzstudios.waktusolatdz.notification
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.deenzstudios.waktusolatdz.data.NotificationPreferences
+import com.deenzstudios.waktusolatdz.data.PrayerTimeSlot
+import com.deenzstudios.waktusolatdz.data.ZonePreferences
 import com.deenzstudios.waktusolatdz.widget.PrayerWidgetProvider
+import androidx.core.content.ContextCompat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -18,14 +22,34 @@ class PrayerAlarmReceiver : BroadcastReceiver() {
             ACTION_FIRE -> {
                 val prayer = intent.getStringExtra(EXTRA_PRAYER) ?: return
                 val reminder = intent.getBooleanExtra(EXTRA_REMINDER, false)
+                val zone = intent.getStringExtra(EXTRA_ZONE).orEmpty()
+                val settings = NotificationPreferences(context).settings()
+                val slot = PrayerTimeSlot.entries.firstOrNull { it.label == prayer }
+                if (!settings.enabled || slot == null || slot !in settings.slots ||
+                    (reminder && !settings.remindBefore) || (!reminder && !settings.notifyOnTime) ||
+                    zone != ZonePreferences(context).selectedZone
+                ) return
+                val mode = if (reminder) "normal" else NotificationPreferences(context).soundMode(slot)
                 PrayerNotifier.notify(
                     context = context.applicationContext,
                     prayer = prayer,
                     time = intent.getStringExtra(EXTRA_TIME).orEmpty(),
-                    zone = intent.getStringExtra(EXTRA_ZONE).orEmpty(),
+                    zone = zone,
                     reminder = reminder,
                     notificationId = intent.getIntExtra(EXTRA_NOTIFICATION_ID, 0),
+                    silent = mode == "silent" || mode == "azan",
                 )
+                if (mode == "azan" && !reminder && PrayerNotifier.canPost(context)) {
+                    try {
+                        ContextCompat.startForegroundService(
+                            context,
+                            Intent(context, AzanPlaybackService::class.java)
+                                .putExtra(AzanPlaybackService.EXTRA_PRAYER_SLOT, slot.name),
+                        )
+                    } catch (_: RuntimeException) {
+                        // The ordinary prayer notification remains visible if playback cannot start.
+                    }
+                }
                 // Pada waktu sebenar, tukar penanda "waktu semasa" dalam widget.
                 if (!reminder) {
                     PrayerWidgetProvider.updateAll(context.applicationContext)
@@ -33,6 +57,7 @@ class PrayerAlarmReceiver : BroadcastReceiver() {
             }
 
             ACTION_ISLAMIC_EVENT -> {
+                if (!NotificationPreferences(context).enabled) return
                 PrayerNotifier.notifyIslamicEvent(
                     context = context.applicationContext,
                     title = intent.getStringExtra(EXTRA_TITLE).orEmpty(),
@@ -61,8 +86,11 @@ class PrayerAlarmReceiver : BroadcastReceiver() {
             } finally {
                 // Tarikh penting dikira daripada cache, jadi ia tetap dipasang
                 // walaupun permintaan rangkaian di atas gagal.
-                IslamicEventAlarmScheduler(appContext).schedule()
-                pendingResult.finish()
+                try {
+                    IslamicEventAlarmScheduler(appContext).schedule()
+                } finally {
+                    pendingResult.finish()
+                }
             }
         }
     }

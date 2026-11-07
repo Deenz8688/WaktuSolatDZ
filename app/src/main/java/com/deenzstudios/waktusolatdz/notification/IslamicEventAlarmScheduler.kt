@@ -39,19 +39,19 @@ class IslamicEventAlarmScheduler(context: Context) {
             if (event.dateMillis <= now) return@forEachIndexed
             val pendingIntent = eventPendingIntent(EVENT_CODE_BASE + index, event)
 
-            if (canScheduleExact(alarmManager)) {
-                alarmManager.setExactAndAllowWhileIdle(
-                    AlarmManager.RTC_WAKEUP,
-                    event.dateMillis,
-                    pendingIntent,
-                )
-            } else {
-                alarmManager.setAndAllowWhileIdle(
-                    AlarmManager.RTC_WAKEUP,
-                    event.dateMillis,
-                    pendingIntent,
-                )
+            try {
+                if (canScheduleExact(alarmManager)) {
+                    alarmManager.setExactAndAllowWhileIdle(
+                        AlarmManager.RTC_WAKEUP, event.dateMillis, pendingIntent,
+                    )
+                    return@forEachIndexed
+                }
+            } catch (_: SecurityException) {
+                // Exact-alarm access can change between checking and scheduling.
             }
+            alarmManager.setAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP, event.dateMillis, pendingIntent,
+            )
         }
     }
 

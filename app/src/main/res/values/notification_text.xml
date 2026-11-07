@@ -1,0 +1,34 @@
+<resources>
+    <string name="notification_channel_reminder">Peringatan Solat</string>
+    <string name="notification_channel_reminder_description">%1$d minit sebelum masuk waktu solat</string>
+    <string name="notification_channel_ontime">Masuk Waktu Solat</string>
+    <string name="notification_channel_ontime_description">Notifikasi tepat pada waktu solat</string>
+    <string name="notification_channel_event">Tarikh Penting Islam</string>
+    <string name="notification_channel_event_description">Notifikasi pada awal hari tarikh penting Islam</string>
+    <string name="notification_reminder_title">%1$s %2$d minit lagi</string>
+    <string name="notification_reminder_body">Waktu %1$s masuk pukul %2$s • %3$s</string>
+    <string name="notification_ontime_title">Masuk waktu %1$s</string>
+    <string name="notification_ontime_body">Pukul %1$s • %2$s. Jom tunaikan solat.</string>
+    <string-array name="notification_event_titles">
+        <item>Selamat Tahun Baru Hijrah</item>
+        <item>Hari Asyura Hari Ini</item>
+        <item>Selamat Maulidur Rasul</item>
+        <item>Israk &amp; Mikraj Hari Ini</item>
+        <item>Selamat Menyambut Ramadan</item>
+        <item>Nuzul Al-Quran Hari Ini</item>
+        <item>Selamat Menyambut Hari Raya Aidilfitri</item>
+        <item>Hari Arafah Hari Ini</item>
+        <item>Selamat Menyambut Hari Raya Aidiladha</item>
+    </string-array>
+    <string-array name="notification_event_messages">
+        <item>Awal Muharram — semoga tahun baharu ini lebih baik daripada sebelumnya.</item>
+        <item>10 Muharram — disunatkan berpuasa pada hari Asyura.</item>
+        <item>12 Rabiulawal — selawat dan salam buat junjungan Nabi Muhammad SAW.</item>
+        <item>27 Rejab — peringatan peristiwa perjalanan malam Rasulullah SAW.</item>
+        <item>1 Ramadan — semoga ibadah puasa kita diterima Allah.</item>
+        <item>17 Ramadan — peringatan turunnya Al-Quran.</item>
+        <item>1 Syawal — maaf zahir dan batin daripada kami, Waktu Solat DZ.</item>
+        <item>9 Zulhijjah — hari terbaik untuk berdoa dan berpuasa.</item>
+        <item>10 Zulhijjah — selamat berkorban, semoga amal ibadah diterima.</item>
+    </string-array>
+</resources>

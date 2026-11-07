@@ -353,6 +353,146 @@
                 android:trackTint="@null"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"  tools:textSize="14sp"/>
+                <TextView
+                    style="@style/HomeHeading"
+                    android:layout_marginTop="18dp"
+                    android:textSize="16sp"
+                    android:text="@string/adhan_settings_title" />
+                <TextView
+                    style="@style/HomeMuted"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/adhan_settings_note" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/HomeText"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/prayer_fajr" />
+                    <Spinner
+                        android:id="@+id/sound_fajr"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1.6"
+                        android:entries="@array/adhan_modes" />
+                    <ImageButton
+                        android:id="@+id/preview_fajr"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="4dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/adhan_preview_play"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_adhan_play" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/HomeText"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/prayer_dhuhr" />
+                    <Spinner
+                        android:id="@+id/sound_dhuhr"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1.6"
+                        android:entries="@array/adhan_modes" />
+                    <ImageButton
+                        android:id="@+id/preview_dhuhr"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="4dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/adhan_preview_play"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_adhan_play" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/HomeText"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/prayer_asr" />
+                    <Spinner
+                        android:id="@+id/sound_asr"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1.6"
+                        android:entries="@array/adhan_modes" />
+                    <ImageButton
+                        android:id="@+id/preview_asr"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="4dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/adhan_preview_play"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_adhan_play" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/HomeText"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/prayer_maghrib" />
+                    <Spinner
+                        android:id="@+id/sound_maghrib"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1.6"
+                        android:entries="@array/adhan_modes" />
+                    <ImageButton
+                        android:id="@+id/preview_maghrib"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="4dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/adhan_preview_play"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_adhan_play" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/HomeText"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/prayer_isha" />
+                    <Spinner
+                        android:id="@+id/sound_isha"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1.6"
+                        android:entries="@array/adhan_modes" />
+                    <ImageButton
+                        android:id="@+id/preview_isha"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="4dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/adhan_preview_play"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_adhan_play" />
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -39,8 +39,11 @@ class PrayerBootReceiver : BroadcastReceiver() {
             } catch (_: Exception) {
                 // Jadual tersimpan sudah dipasang semula; data baru akan diambil kemudian.
             } finally {
-                IslamicEventAlarmScheduler(appContext).schedule()
-                pendingResult.finish()
+                try {
+                    IslamicEventAlarmScheduler(appContext).schedule()
+                } finally {
+                    pendingResult.finish()
+                }
             }
         }
     }

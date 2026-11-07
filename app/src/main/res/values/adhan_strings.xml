@@ -1,0 +1,17 @@
+<resources>
+    <string name="adhan_settings_title">Bunyi masuk waktu</string>
+    <string name="adhan_settings_note">Pilih bunyi bagi setiap solat fardu. Peringatan 5 minit sebelum menggunakan bunyi biasa.</string>
+    <string-array name="adhan_modes">
+        <item>Bunyi biasa</item>
+        <item>Azan Mekah</item>
+        <item>Senyap</item>
+    </string-array>
+    <string name="adhan_playing_channel">Azan sedang dimainkan</string>
+    <string name="adhan_playing_title">Azan sedang dimainkan</string>
+    <string name="adhan_stop">Hentikan azan</string>
+    <string name="adhan_preview_play">Dengar azan</string>
+    <string name="adhan_preview_stop">Hentikan contoh azan</string>
+    <string name="adhan_preview_failed">Audio azan tidak dapat dimainkan.</string>
+    <string name="adhan_silent_channel">Waktu solat — senyap</string>
+    <string name="adhan_credit">Azan Mekah: Seyfula Islam, CC BY 3.0. Audio diekstrak, ditukar kepada MP3 dan dipotong kira-kira 8.5 saat pada permulaan. Sumber: https://commons.wikimedia.org/wiki/File:Adhan,_Great_Mosque_of_Mecca_-_Jan_21,_2013.webm\nLesen: https://creativecommons.org/licenses/by/3.0/\nAzan Subuh: Sheikh Ali Mullah, sumber: https://archive.org/details/MakkahFajrAdhan6913SheikhAliMullah</string>
+</resources>

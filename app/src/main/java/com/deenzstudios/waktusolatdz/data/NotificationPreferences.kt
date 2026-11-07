@@ -47,6 +47,14 @@ class NotificationPreferences(context: Context) {
             prefs.edit().putStringSet(KEY_SLOTS, value.map { it.name }.toSet()).apply()
         }
 
+    fun soundMode(slot: PrayerTimeSlot): String =
+        prefs.getString("sound_${slot.name}", "normal") ?: "normal"
+
+    fun setSoundMode(slot: PrayerTimeSlot, mode: String) {
+        require(mode in setOf("normal", "azan", "silent"))
+        prefs.edit().putString("sound_${slot.name}", mode).apply()
+    }
+
     fun settings(): NotificationSettings = NotificationSettings(
         enabled = enabled,
         remindBefore = remindBefore,
