@@ -100,10 +100,10 @@ private class HomeXmlView(context: Context) : FrameLayout(context) {
         content.nextName.text = nextName
         content.nextTime.text = nextTime
         content.countdown.text = countdown
-        content.gregorianDate.text = context.getString(
+        content.cardGregorianDate.text = context.getString(
             R.string.home_date, times.day, formatGregorianDate(times.date),
         )
-        content.hijriDate.text = formatHijriDate(times.hijriDate)
+        content.cardHijriDate.text = formatHijriDate(times.hijriDate)
 
         bindWeather(times)
         bindCalendar(times)

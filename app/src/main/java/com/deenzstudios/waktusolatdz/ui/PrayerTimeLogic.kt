@@ -12,7 +12,7 @@ import com.deenzstudios.waktusolatdz.data.PrayerTimeSlot
 import kotlinx.coroutines.delay
 import java.util.Calendar
 
-internal data class NextPrayerInfo(val slot: PrayerTimeSlot, val time: String, val minutesRemaining: Int)
+internal data class NextPrayerInfo(val slot: PrayerTimeSlot, val time: String, val secondsRemaining: Int)
 
 internal fun minutesOfDay(time: String): Int {
     val parts = time.split(":")
@@ -26,22 +26,23 @@ internal fun nextPrayerInfo(times: PrayerTimes, clock: Calendar): NextPrayerInfo
         PrayerTimeSlot.ASAR to times.asr, PrayerTimeSlot.MAGHRIB to times.maghrib, PrayerTimeSlot.ISYAK to times.isha)
     val now = clock.minutesOfDay()
     val target = prayers.firstOrNull { minutesOfDay(it.second) > now } ?: prayers.first()
-    var diff = minutesOfDay(target.second) - now
-    if (diff <= 0) diff += 24 * 60
+    var diff = minutesOfDay(target.second) * 60 - (now * 60 + clock.get(Calendar.SECOND))
+    if (diff <= 0) diff += 24 * 60 * 60
     return NextPrayerInfo(target.first, target.second, diff)
 }
 
 /** One clock shared by XML data binders; sample text stays in tools: attributes. */
 @Composable
-internal fun rememberPrayerClock(): Calendar {
+internal fun rememberPrayerClock(showSeconds: Boolean = false): Calendar {
     val preview = LocalInspectionMode.current
     var clock by remember { mutableStateOf(Calendar.getInstance()) }
-    LaunchedEffect(preview) {
+    LaunchedEffect(preview, showSeconds) {
         if (preview) return@LaunchedEffect
         while (true) {
-            delay(1_000)
+            delay(1_000 - System.currentTimeMillis() % 1_000)
             val latest = Calendar.getInstance()
-            if (latest.minutesOfDay() != clock.minutesOfDay() ||
+            if ((showSeconds && latest.timeInMillis / 1_000 != clock.timeInMillis / 1_000) ||
+                latest.minutesOfDay() != clock.minutesOfDay() ||
                 latest.get(Calendar.DAY_OF_YEAR) != clock.get(Calendar.DAY_OF_YEAR)) clock = latest
         }
     }

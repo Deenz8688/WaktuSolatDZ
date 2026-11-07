@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Visible sentences and formats for changing data. No UI wording belongs in Kotlin. -->
 <resources>
+    <string name="ui_countdown_timer">%1$02d:%2$02d:%3$02d</string>
     <string name="ui_countdown_hours">%1$d jam %2$d minit lagi</string>
     <string name="ui_countdown_minutes">%1$d minit lagi</string>
     <string name="ui_schedule_date">%1$s · %2$s · %3$s</string>

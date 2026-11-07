@@ -172,7 +172,7 @@ fun PrayerScreen(viewModel: PrayerViewModel, mosqueViewModel: MosqueViewModel) {
 @Composable
 private fun HomeTab(state: PrayerUiState, onRetry: () -> Unit) {
     val context = LocalContext.current
-    val clock = rememberPrayerClock()
+    val clock = rememberPrayerClock(showSeconds = true)
     val times = (state as? PrayerUiState.Success)?.times
     val next = remember(times, clock) { times?.let { nextPrayerInfo(it, clock) } }
     HomeXmlScreen(
@@ -180,9 +180,8 @@ private fun HomeTab(state: PrayerUiState, onRetry: () -> Unit) {
         nextName = next?.let { context.getString(prayerNameResource(it.slot)) }.orEmpty(),
         nextTime = next?.time.orEmpty(),
         countdown = next?.let {
-            if (it.minutesRemaining >= 60) context.getString(
-                R.string.ui_countdown_hours, it.minutesRemaining / 60, it.minutesRemaining % 60,
-            ) else context.getString(R.string.ui_countdown_minutes, it.minutesRemaining)
+            context.getString(R.string.ui_countdown_timer, it.secondsRemaining / 3600,
+                (it.secondsRemaining % 3600) / 60, it.secondsRemaining % 60)
         }.orEmpty(),
         onRetry = onRetry,
     )

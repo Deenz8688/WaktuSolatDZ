@@ -65,161 +65,156 @@
                 android:background="@drawable/bg_home_hero"
                 android:clipToOutline="true"
                 android:id="@+id/next_prayer">
-                <!-- Weather artwork: edit position, size and colors here. -->
-                <LinearLayout
-                    android:id="@+id/weather_group"
-                    android:layout_width="108dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|end"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginEnd="16dp"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
-                    android:focusable="true"
-                    android:visibility="gone"
-                    tools:visibility="visible">
-                    <FrameLayout
-                        android:layout_width="108dp"
-                        android:layout_height="84dp">
-                        <ImageView
-                            android:id="@+id/weather_sun"
-                            android:layout_width="52dp"
-                            android:layout_height="52dp"
-                            android:layout_gravity="top|end"
-                            android:layout_marginEnd="5dp"
-                            android:src="@drawable/ic_weather_sun"
-                            android:tint="#FFD476"
-                            android:importantForAccessibility="no" />
-                        <ImageView
-                            android:id="@+id/weather_moon"
-                            android:layout_width="52dp"
-                            android:layout_height="52dp"
-                            android:layout_gravity="top|end"
-                            android:layout_marginEnd="5dp"
-                            android:src="@drawable/ic_crescent_star"
-                            android:tint="#E5D9FF"
-                            android:visibility="gone"
-                            android:importantForAccessibility="no" />
-                        <ImageView
-                            android:id="@+id/weather_cloud"
-                            android:layout_width="84dp"
-                            android:layout_height="60dp"
-                            android:layout_gravity="bottom|start"
-                            android:layout_marginBottom="14dp"
-                            android:src="@drawable/ic_weather_cloud"
-                            android:tint="#F2EDFF"
-                            android:importantForAccessibility="no" />
-                        <ImageView
-                            android:id="@+id/weather_rain"
-                            android:layout_width="72dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="bottom|start"
-                            android:layout_marginStart="6dp"
-                            android:src="@drawable/ic_weather_drops"
-                            android:visibility="gone"
-                            android:importantForAccessibility="no" />
-                    </FrameLayout>
-                </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="18dp">
-                    <TextView
-                        style="@style/HomeLabel"
-                        android:text="SOLAT SETERUSNYA"
-                        android:textColor="@color/home_hero_label"
-                        android:textSize="10sp"
-                        android:letterSpacing="0.20" />
-                    <TextView
-                        android:id="@+id/next_name"
-                        style="@style/HomeText"
-                        android:layout_marginTop="10dp"
-                        android:textSize="22sp"
-                        android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/home_white"
-                        android:text="Subuh"
-                        tools:text="Subuh" />
-                    <TextView
-                        android:id="@+id/next_time"
-                        style="@style/HomeText"
-                        android:textSize="44sp"
-                        android:fontFamily="sans-serif-light"
-                        android:textColor="@color/home_white"
-                        android:letterSpacing="-0.035"
-                        android:text="05:50"
-                        tools:text="05:50" />
+                    android:orientation="horizontal"
+                    android:gravity="bottom"
+                    android:padding="18dp"
+                    android:paddingBottom="8dp">
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:background="@drawable/bg_home_timer"
-                        android:paddingStart="13dp"
-                        android:paddingEnd="13dp"
-                        android:paddingTop="7dp"
-                        android:paddingBottom="7dp">
-                        <ImageView
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:src="@drawable/ic_clock"
-                            android:tint="@color/home_hero_label"
-                            android:importantForAccessibility="no" />
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.15"
+                        android:layout_marginEnd="8dp"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical">
                         <TextView
-                            android:id="@+id/countdown"
+                            android:id="@+id/next_name"
                             style="@style/HomeText"
-                            android:layout_marginStart="8dp"
-                            android:textColor="@color/home_white"
+                            android:textSize="22sp"
                             android:fontFamily="sans-serif-medium"
-                            android:text="7 jam 57 minit lagi"
-                            tools:text="7 jam 57 minit lagi" />
+                            android:textColor="@color/home_white"
+                            android:text="Subuh"
+                            tools:text="Subuh" />
+                        <TextView
+                            android:id="@+id/next_time"
+                            style="@style/HomeText"
+                            android:textSize="44sp"
+                            android:fontFamily="sans-serif-light"
+                            android:textColor="@color/home_white"
+                            android:letterSpacing="-0.035"
+                            android:text="05:50"
+                            tools:text="05:50" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-4dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <TextView
+                                style="@style/HomeLabel"
+                                android:text="SOLAT SETERUSNYA :"
+                                android:textColor="@color/home_hero_label"
+                                android:textSize="9sp"
+                                android:letterSpacing="0.05" />
+                            <TextView
+                                android:id="@+id/countdown"
+                                style="@style/HomeText"
+                                android:layout_marginStart="4dp"
+                                android:background="@drawable/bg_home_timer"
+                                android:paddingStart="8dp"
+                                android:paddingEnd="8dp"
+                                android:paddingTop="3dp"
+                                android:paddingBottom="3dp"
+                                android:singleLine="true"
+                                android:ellipsize="end"
+                                android:textColor="@color/home_white"
+                                android:textSize="9sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="07:57:00"
+                                tools:text="07:57:00" />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="end">
+                    <!-- Weather artwork: edit position, size and colors here. -->
+                    <LinearLayout
+                        android:id="@+id/weather_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:focusable="true"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+                        <FrameLayout
+                            android:layout_width="108dp"
+                            android:layout_height="84dp"
+                            android:layout_gravity="end">
+                            <ImageView
+                                android:id="@+id/weather_sun"
+                                android:layout_width="52dp"
+                                android:layout_height="52dp"
+                                android:layout_gravity="top|end"
+                                android:layout_marginEnd="5dp"
+                                android:src="@drawable/ic_weather_sun"
+                                android:tint="#FFD476"
+                                android:importantForAccessibility="no" />
+                            <ImageView
+                                android:id="@+id/weather_moon"
+                                android:layout_width="52dp"
+                                android:layout_height="52dp"
+                                android:layout_gravity="top|end"
+                                android:layout_marginEnd="5dp"
+                                android:src="@drawable/ic_crescent_star"
+                                android:tint="#E5D9FF"
+                                android:visibility="gone"
+                                android:importantForAccessibility="no" />
+                            <ImageView
+                                android:id="@+id/weather_cloud"
+                                android:layout_width="84dp"
+                                android:layout_height="60dp"
+                                android:layout_gravity="bottom|start"
+                                android:layout_marginBottom="14dp"
+                                android:src="@drawable/ic_weather_cloud"
+                                android:tint="#F2EDFF"
+                                android:importantForAccessibility="no" />
+                            <ImageView
+                                android:id="@+id/weather_rain"
+                                android:layout_width="72dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="bottom|start"
+                                android:layout_marginStart="6dp"
+                                android:src="@drawable/ic_weather_drops"
+                                android:visibility="gone"
+                                android:importantForAccessibility="no" />
+                        </FrameLayout>
+                    </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:orientation="vertical"
+                            android:gravity="end">
+                            <TextView
+                                android:id="@+id/card_gregorian_date"
+                                style="@style/HomeText"
+                                android:layout_width="match_parent"
+                                android:gravity="end"
+                                android:textSize="9sp"
+                                android:textColor="@color/home_white"
+                                android:text="Jumaat, 6 November 2026"
+                                tools:text="Jumaat, 6 November 2026" />
+                            <TextView
+                                android:id="@+id/card_hijri_date"
+                                style="@style/HomeText"
+                                android:layout_width="match_parent"
+                                android:gravity="end"
+                                android:layout_marginTop="2dp"
+                                android:textSize="9sp"
+                                android:textColor="@color/home_hero_label"
+                                android:text="26 Jamadilawal 1448H"
+                                tools:text="26 Jamadilawal 1448H" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </FrameLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
-                <LinearLayout
-                    style="@style/HomeCard"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="6dp"
-                    android:orientation="vertical">
-                    <TextView
-                        style="@style/HomeLabel"
-                        android:text="HARI INI" />
-                    <TextView
-                        android:id="@+id/gregorian_date"
-                        style="@style/HomeText"
-                        android:layout_marginTop="8dp"
-                        android:lineSpacingExtra="5dp"
-                        android:text="Jumaat, 6 November 2026"
-                        tools:text="Jumaat, 6 November 2026" />
-                </LinearLayout>
-                <LinearLayout
-                    style="@style/HomeCard"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_marginStart="6dp"
-                    android:orientation="vertical">
-                    <TextView
-                        style="@style/HomeLabel"
-                        android:text="TARIKH HIJRAH" />
-                    <TextView
-                        android:id="@+id/hijri_date"
-                        style="@style/HomeText"
-                        android:layout_marginTop="8dp"
-                        android:lineSpacingExtra="5dp"
-                        android:text="26 Jamadilawal 1448H"
-                        tools:text="26 Jamadilawal 1448H" />
-                </LinearLayout>
-            </LinearLayout>
             <LinearLayout
                 android:id="@+id/calendar_section"
                 style="@style/HomeSection"
@@ -227,7 +222,7 @@
                 android:padding="20dp">
                 <TextView
                     style="@style/HomeHeading"
-                    android:text="Tarikh Penting Islam" />
+                    android:text="Takwim Islam" />
                 <ScrollView
                     android:id="@+id/event_scroll"
                     android:layout_width="match_parent"
