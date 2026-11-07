@@ -141,11 +141,6 @@
                     android:buttonTint="@color/home_hero_center"
                     android:text="English"  tools:textSize="14sp"/>
             </RadioGroup>
-            <TextView
-                style="@style/HomeMuted"
-                android:layout_width="match_parent"
-                android:layout_marginTop="6dp"
-                android:text="@string/language_translation_note" />
             </LinearLayout>
         </LinearLayout>
         <LinearLayout

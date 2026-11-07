@@ -2,14 +2,18 @@ package com.deenzstudios.waktusolatdz.ui
 
 import android.content.Context
 import android.content.Intent
+import android.app.NotificationManager
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.media.AudioAttributes
 import android.media.MediaPlayer
+import android.media.Ringtone
+import android.media.RingtoneManager
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.net.Uri
 import android.os.PowerManager
+import android.os.Build
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
@@ -36,6 +40,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.deenzstudios.waktusolatdz.R
+import com.deenzstudios.waktusolatdz.notification.PrayerNotifier
 import com.deenzstudios.waktusolatdz.data.*
 import com.deenzstudios.waktusolatdz.databinding.*
 import com.deenzstudios.waktusolatdz.ui.theme.WaktuSolatDZTheme
@@ -241,22 +246,29 @@ private class SettingsXmlView(context: Context) : FrameLayout(context) {
     private val detectButtonText = binding.detectLocation.text
     private var enabled = false
     private var previewPlayer: MediaPlayer? = null
+    private var previewRingtone: Ringtone? = null
     private var previewButton: ImageButton? = null
+    private val ringtoneCompletionCheck = object : Runnable {
+        override fun run() {
+            if (previewRingtone?.isPlaying == true) postDelayed(this, 250)
+            else stopAzanPreview()
+        }
+    }
     private val previewLifecycleObserver = LifecycleEventObserver { _, event ->
         if (event == Lifecycle.Event.ON_STOP) stopAzanPreview()
     }
 
     init {
-        listOf(
-            binding.previewFajr to R.raw.azan_subuh,
-            binding.previewDhuhr to R.raw.azan_mekah_audio,
-            binding.previewAsr to R.raw.azan_mekah_audio,
-            binding.previewMaghrib to R.raw.azan_mekah_audio,
-            binding.previewIsha to R.raw.azan_mekah_audio,
-        ).forEach { (button, audio) ->
-            button.setOnClickListener { toggleAzanPreview(button, audio) }
-        }
         val soundPreferences = NotificationPreferences(context)
+        listOf(
+            Triple(binding.previewFajr, PrayerTimeSlot.SUBUH, R.raw.azan_subuh),
+            Triple(binding.previewDhuhr, PrayerTimeSlot.ZOHOR, R.raw.azan_mekah_audio),
+            Triple(binding.previewAsr, PrayerTimeSlot.ASAR, R.raw.azan_mekah_audio),
+            Triple(binding.previewMaghrib, PrayerTimeSlot.MAGHRIB, R.raw.azan_mekah_audio),
+            Triple(binding.previewIsha, PrayerTimeSlot.ISYAK, R.raw.azan_mekah_audio),
+        ).forEach { (button, slot, audio) ->
+            button.setOnClickListener { toggleAzanPreview(button, audio, soundPreferences.soundMode(slot)) }
+        }
         listOf(
             Triple(binding.soundFajr, PrayerTimeSlot.SUBUH, listOf("normal", "azan", "silent")),
             Triple(binding.soundDhuhr, PrayerTimeSlot.ZOHOR, listOf("normal", "azan", "silent")),
@@ -269,7 +281,19 @@ private class SettingsXmlView(context: Context) : FrameLayout(context) {
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     modes.getOrNull(position)?.let { mode ->
-                        if (soundPreferences.soundMode(slot) != mode) soundPreferences.setSoundMode(slot, mode)
+                        if (soundPreferences.soundMode(slot) != mode) {
+                            stopAzanPreview()
+                            soundPreferences.setSoundMode(slot, mode)
+                        }
+                        val button = when (slot) {
+                            PrayerTimeSlot.SUBUH -> binding.previewFajr
+                            PrayerTimeSlot.ZOHOR -> binding.previewDhuhr
+                            PrayerTimeSlot.ASAR -> binding.previewAsr
+                            PrayerTimeSlot.MAGHRIB -> binding.previewMaghrib
+                            else -> binding.previewIsha
+                        }
+                        button.isEnabled = mode != "silent"
+                        button.alpha = if (button.isEnabled) 1f else 0.35f
                     }
                 }
             }
@@ -328,12 +352,17 @@ private class SettingsXmlView(context: Context) : FrameLayout(context) {
         super.onDetachedFromWindow()
     }
 
-    private fun toggleAzanPreview(button: ImageButton, audio: Int) {
+    private fun toggleAzanPreview(button: ImageButton, audio: Int, mode: String) {
         if (previewButton === button) {
             stopAzanPreview()
             return
         }
         stopAzanPreview()
+        if (mode == "silent") return
+        if (mode == "normal") {
+            playSystemSoundPreview(button)
+            return
+        }
         try {
             val descriptor = resources.openRawResourceFd(audio)
                 ?: throw IllegalStateException("Audio unavailable")
@@ -361,7 +390,44 @@ private class SettingsXmlView(context: Context) : FrameLayout(context) {
         }
     }
 
+    private fun playSystemSoundPreview(button: ImageButton) {
+        try {
+            val uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                PrayerNotifier.ensureChannels(context)
+                context.getSystemService(NotificationManager::class.java)
+                    .getNotificationChannel(PrayerNotifier.CHANNEL_ON_TIME)?.sound
+            } else {
+                RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION)
+            }
+            if (uri == null ||
+                (uri == Settings.System.DEFAULT_NOTIFICATION_URI &&
+                    RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION) == null)
+            ) {
+                Toast.makeText(context, R.string.adhan_system_sound_silent, Toast.LENGTH_SHORT).show()
+                return
+            }
+            val ringtone = RingtoneManager.getRingtone(context, uri)
+                ?: throw IllegalStateException("System sound unavailable")
+            ringtone.audioAttributes = AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build()
+            previewRingtone = ringtone
+            previewButton = button
+            button.setImageResource(R.drawable.ic_adhan_stop)
+            button.contentDescription = context.getString(R.string.adhan_preview_stop)
+            ringtone.play()
+            postDelayed(ringtoneCompletionCheck, 500)
+        } catch (_: Exception) {
+            stopAzanPreview()
+            Toast.makeText(context, R.string.adhan_preview_failed, Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun stopAzanPreview() {
+        removeCallbacks(ringtoneCompletionCheck)
+        previewRingtone?.stop()
+        previewRingtone = null
         previewPlayer?.release()
         previewPlayer = null
         previewButton?.apply {

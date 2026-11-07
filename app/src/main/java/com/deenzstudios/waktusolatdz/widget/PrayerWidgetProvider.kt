@@ -116,7 +116,8 @@ class PrayerWidgetProvider : AppWidgetProvider() {
         private const val DAY_MINUTES = 24 * 60
         private const val ACTION_TICK = "com.deenzstudios.waktusolatdz.action.WIDGET_TICK"
         private const val TICK_REQUEST_BASE = 5_000
-        private const val TICK_COUNT = 5
+        private const val DHUHA_BUFFER_MINUTES = 15
+        private const val TICK_COUNT = 9
 
         /** Papar semula widget daripada cache (selepas app memuatkan data baru). */
         fun updateAll(context: Context) {
@@ -167,8 +168,8 @@ class PrayerWidgetProvider : AppWidgetProvider() {
         }
 
         /**
-         * Jadualkan pemicu pada setiap masuk waktu (hari ini & Subuh esok) supaya
-         * penanda waktu semasa sentiasa tepat walaupun notifikasi dimatikan.
+         * Jadualkan pemicu untuk semua waktu yang dipaparkan pada widget supaya
+         * penanda waktu dikemas kini walaupun notifikasi dimatikan.
          */
         private fun scheduleTicks(context: Context, times: PrayerTimes?) {
             cancelTicks(context)
@@ -177,15 +178,19 @@ class PrayerWidgetProvider : AppWidgetProvider() {
 
             val now = System.currentTimeMillis()
             val slots = listOf(
+                times.imsak,
                 times.fajr,
+                times.syuruk,
+                times.dhuha,
                 times.dhuhr,
                 times.asr,
                 times.maghrib,
                 times.isha,
             )
 
-            val triggers = slots.map { time ->
-                val minutes = time.toMinutesOfDay()
+            val minutesOfDay = slots.map { it.toMinutesOfDay() } +
+                ((times.dhuhr.toMinutesOfDay() - DHUHA_BUFFER_MINUTES + DAY_MINUTES) % DAY_MINUTES)
+            val triggers = minutesOfDay.map { minutes ->
                 val calendar = Calendar.getInstance().apply {
                     set(Calendar.HOUR_OF_DAY, minutes / 60)
                     set(Calendar.MINUTE, minutes % 60)
@@ -313,30 +318,30 @@ class PrayerWidgetProvider : AppWidgetProvider() {
             val time: String,
             val viewId: Int,
             val labelViewId: Int,
-            val isFard: Boolean,
         )
 
         private fun prayerEntries(times: PrayerTimes): List<PrayerEntry> = listOf(
-            PrayerEntry("Imsak", times.imsak, R.id.widget_imsak, R.id.widget_imsak_label, false),
-            PrayerEntry("Subuh", times.fajr, R.id.widget_subuh, R.id.widget_subuh_label, true),
-            PrayerEntry("Syuruk", times.syuruk, R.id.widget_syuruk, R.id.widget_syuruk_label, false),
-            PrayerEntry("Dhuha", times.dhuha, R.id.widget_dhuha, R.id.widget_dhuha_label, false),
-            PrayerEntry("Zohor", times.dhuhr, R.id.widget_zohor, R.id.widget_zohor_label, true),
-            PrayerEntry("Asar", times.asr, R.id.widget_asar, R.id.widget_asar_label, true),
-            PrayerEntry("Maghrib", times.maghrib, R.id.widget_maghrib, R.id.widget_maghrib_label, true),
-            PrayerEntry("Isyak", times.isha, R.id.widget_isyak, R.id.widget_isyak_label, true),
+            PrayerEntry("Imsak", times.imsak, R.id.widget_imsak, R.id.widget_imsak_label),
+            PrayerEntry("Subuh", times.fajr, R.id.widget_subuh, R.id.widget_subuh_label),
+            PrayerEntry("Syuruk", times.syuruk, R.id.widget_syuruk, R.id.widget_syuruk_label),
+            PrayerEntry("Dhuha", times.dhuha, R.id.widget_dhuha, R.id.widget_dhuha_label),
+            PrayerEntry("Zohor", times.dhuhr, R.id.widget_zohor, R.id.widget_zohor_label),
+            PrayerEntry("Asar", times.asr, R.id.widget_asar, R.id.widget_asar_label),
+            PrayerEntry("Maghrib", times.maghrib, R.id.widget_maghrib, R.id.widget_maghrib_label),
+            PrayerEntry("Isyak", times.isha, R.id.widget_isyak, R.id.widget_isyak_label),
         )
 
-        /**
-         * Waktu fardu yang sedang berlangsung: waktu fardu terakhir yang sudah masuk.
-         * Imsak, Syuruk dan Dhuha tidak ditanda kerana bukan solat fardu.
-         */
-        private fun currentPrayerLabel(entries: List<PrayerEntry>): String {
+        /** Waktu terakhir dalam jadual yang telah masuk, termasuk Imsak, Syuruk dan Dhuha. */
+        private fun currentPrayerLabel(entries: List<PrayerEntry>): String? {
             val now = Calendar.getInstance()
             val nowMinutes = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE)
-            val fardu = entries.filter { it.isFard }
-            val passed = fardu.filter { it.time.toMinutesOfDay() <= nowMinutes }
-            return passed.lastOrNull()?.label ?: fardu.last().label
+            val passed = entries.filter { it.time.toMinutesOfDay() <= nowMinutes }
+            val current = passed.lastOrNull() ?: return entries.last().label
+            val zohor = entries.firstOrNull { it.label == "Zohor" }?.time?.toMinutesOfDay()
+            if (current.label == "Dhuha" && zohor != null &&
+                nowMinutes >= zohor - DHUHA_BUFFER_MINUTES && nowMinutes < zohor
+            ) return null
+            return current.label
         }
 
         private fun applyWeather(views: RemoteViews, weather: WeatherNow?) {
