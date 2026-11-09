@@ -58,6 +58,7 @@ import com.deenzstudios.waktusolatdz.ui.theme.Purple900
 import com.deenzstudios.waktusolatdz.ui.theme.PurpleTextMuted
 import kotlin.math.atan2
 import kotlin.math.cos
+import kotlin.math.exp
 import kotlin.math.roundToInt
 import kotlin.math.sin
 import kotlin.math.tan
@@ -70,7 +71,7 @@ private const val KAABA_LONGITUDE = 39.8262
 
 @Composable
 internal fun QiblaDial(bearing: Float, azimuth: Float?) {
-    val heading = azimuth ?: 0f
+    val heading = azimuth?.takeIf { it.isFinite() } ?: 0f
     val needleColors = listOf(
         colorResource(R.color.home_hero_start),
         colorResource(R.color.home_hero_center),
@@ -95,6 +96,7 @@ internal fun QiblaDial(bearing: Float, azimuth: Float?) {
             .aspectRatio(1f),
     ) {
         val radius = size.minDimension / 2f
+        if (!radius.isFinite() || radius <= 0f) return@Canvas
         val center = Offset(size.width / 2f, size.height / 2f)
         // Saiz ikut jejari cakera supaya nisbah sama pada semua skrin.
         val unit = radius / 100f
@@ -180,9 +182,9 @@ internal fun QiblaDial(bearing: Float, azimuth: Float?) {
         }
 
         // Jarum panjang menghala kiblat menggunakan warna tema app.
-        val needleBrush = Brush.linearGradient(needleColors, start = center, end = northTip)
-        drawPath(triangle(center, leftShoulder, northTip), brush = needleBrush)
-        drawPath(triangle(center, northTip, rightShoulder), brush = needleBrush)
+        // Solid theme colours avoid a native LinearGradient crash on some devices.
+        drawPath(triangle(center, leftShoulder, northTip), color = needleColors[0])
+        drawPath(triangle(center, northTip, rightShoulder), color = needleColors[2])
         // Ekor: nada cerah supaya arah kiblat lebih menonjol.
         drawPath(triangle(center, leftShoulder, southTip), color = Purple300)
         drawPath(triangle(center, southTip, rightShoulder), color = Purple100)
@@ -231,19 +233,34 @@ internal fun rememberCompassAzimuth(): Float? {
                 onDispose { }
             } else {
                 val listener = object : SensorEventListener {
+                    private var filteredHeading: Float? = null
+                    private var lastTimestamp = 0L
+
                     override fun onSensorChanged(event: SensorEvent) {
                         val matrix = FloatArray(9)
                         SensorManager.getRotationMatrixFromVector(matrix, event.values)
                         val orientation = FloatArray(3)
                         SensorManager.getOrientation(matrix, orientation)
-                        azimuth = normalizeDegrees(
-                            Math.toDegrees(orientation[0].toDouble()).toFloat(),
-                        )
+                        val heading = Math.toDegrees(orientation[0].toDouble()).toFloat()
+                        if (!heading.isFinite()) return
+                        val target = normalizeDegrees(heading)
+                        val elapsed = event.timestamp - lastTimestamp
+                        val previous = filteredHeading
+                        val filtered = if (previous == null || elapsed <= 0L || elapsed > 1_000_000_000L) {
+                            target
+                        } else {
+                            val alpha = (1.0 - exp(-elapsed.toDouble() / 120_000_000.0)).toFloat()
+                            val difference = (target - previous + 540f) % 360f - 180f
+                            normalizeDegrees(previous + alpha * difference)
+                        }
+                        lastTimestamp = event.timestamp
+                        filteredHeading = filtered
+                        azimuth = filtered
                     }
 
                     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) = Unit
                 }
-                manager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_UI)
+                manager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_GAME)
                 onDispose { manager.unregisterListener(listener) }
             }
         }
