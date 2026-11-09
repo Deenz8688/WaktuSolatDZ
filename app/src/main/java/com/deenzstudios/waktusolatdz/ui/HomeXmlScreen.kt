@@ -24,6 +24,7 @@ import com.deenzstudios.waktusolatdz.data.PrayerTimes
 import com.deenzstudios.waktusolatdz.data.PrayerZones
 import com.deenzstudios.waktusolatdz.data.formatGregorianDate
 import com.deenzstudios.waktusolatdz.data.formatHijriDate
+import com.deenzstudios.waktusolatdz.data.formatDisplayTime
 import com.deenzstudios.waktusolatdz.data.upcomingIslamicEvents
 import com.deenzstudios.waktusolatdz.data.WeatherNow
 import com.deenzstudios.waktusolatdz.data.WeatherRepository
@@ -105,7 +106,7 @@ private class HomeXmlView(context: Context) : FrameLayout(context) {
 
         val times = state.times
         content.nextName.text = nextName
-        content.nextTime.text = nextTime
+        content.nextTime.text = formatDisplayTime(context, nextTime)
         content.countdown.text = countdown
         content.cardGregorianDate.text = context.getString(
             R.string.home_date, times.day, formatGregorianDate(times.date),

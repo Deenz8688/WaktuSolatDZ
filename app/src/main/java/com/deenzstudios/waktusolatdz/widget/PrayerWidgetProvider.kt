@@ -23,6 +23,7 @@ import com.deenzstudios.waktusolatdz.data.WeatherStore
 import com.deenzstudios.waktusolatdz.data.ZonePreferences
 import com.deenzstudios.waktusolatdz.data.formatGregorianDate
 import com.deenzstudios.waktusolatdz.data.formatHijriDate
+import com.deenzstudios.waktusolatdz.data.formatDisplayTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -277,7 +278,7 @@ class PrayerWidgetProvider : AppWidgetProvider() {
             entries.forEachIndexed { index, entry ->
                 val active = entry.label == current
                 views.setTextViewText(entry.labelViewId, context.getString(prayerNames[index]))
-                views.setTextViewText(entry.viewId, entry.time)
+                views.setTextViewText(entry.viewId, formatDisplayTime(context, entry.time))
                 views.setTextColor(
                     entry.labelViewId,
                     context.getColor(if (active) R.color.widget_primary else R.color.widget_muted),
@@ -394,9 +395,9 @@ class PrayerWidgetProvider : AppWidgetProvider() {
                 R.string.prayer_isha to times.isha,
             )
             val next = slots.firstOrNull { (_, time) -> time.toMinutesOfDay() > nowMinutes }
-                ?: return context.getString(R.string.widget_next_tomorrow, context.getString(R.string.prayer_fajr), times.fajr)
+                ?: return context.getString(R.string.widget_next_tomorrow, context.getString(R.string.prayer_fajr), formatDisplayTime(context, times.fajr))
 
-            return "${context.getString(next.first)} · ${next.second}"
+            return "${context.getString(next.first)} · ${formatDisplayTime(context, next.second)}"
         }
 
         private fun widgetDescription(context: Context, times: PrayerTimes): String {
@@ -405,7 +406,7 @@ class PrayerWidgetProvider : AppWidgetProvider() {
                 R.string.label_dhuha, R.string.prayer_dhuhr, R.string.prayer_asr,
                 R.string.prayer_maghrib, R.string.prayer_isha)
             val readings = rows.zip(names).joinToString(", ") { (entry, name) ->
-                "${context.getString(name)} ${entry.time}"
+                "${context.getString(name)} ${formatDisplayTime(context, entry.time)}"
             }
             return context.getString(R.string.widget_accessible_summary,
                 datesLabel(context, times), nextPrayer(context, times), readings)

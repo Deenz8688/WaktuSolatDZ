@@ -20,6 +20,7 @@ import com.deenzstudios.waktusolatdz.data.NotificationPreferences
 import com.deenzstudios.waktusolatdz.data.PrayerZones
 import com.deenzstudios.waktusolatdz.data.IslamicEvents
 import com.deenzstudios.waktusolatdz.data.PrayerTimeSlot
+import com.deenzstudios.waktusolatdz.data.formatDisplayTime
 
 /**
  * Bina channel & paparkan notifikasi waktu solat.
@@ -102,15 +103,16 @@ object PrayerNotifier {
 
         val localized = ContextCompat.getContextForLanguage(context)
         val prayerName = localizedPrayerName(localized, prayer)
+        val displayTime = formatDisplayTime(localized, time)
         val zoneLabel = zoneLabel(zone)
         val title: String
         val body: String
         if (reminder) {
             title = localized.getString(R.string.notification_reminder_title, prayerName, NotificationPreferences.REMINDER_MINUTES)
-            body = localized.getString(R.string.notification_reminder_body, prayerName, time, zoneLabel)
+            body = localized.getString(R.string.notification_reminder_body, prayerName, displayTime, zoneLabel)
         } else {
             title = localized.getString(R.string.notification_ontime_title, prayerName)
-            body = localized.getString(R.string.notification_ontime_body, time, zoneLabel)
+            body = localized.getString(R.string.notification_ontime_body, displayTime, zoneLabel)
         }
 
         val contentIntent = PendingIntent.getActivity(

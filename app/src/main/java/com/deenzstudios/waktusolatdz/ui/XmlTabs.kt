@@ -116,7 +116,7 @@ private class ScheduleXmlView(context: Context) : FrameLayout(context) {
             binding.prayerDhuha, binding.prayerZohor, binding.prayerAsar, binding.prayerMaghrib, binding.prayerIsyak).map(::XmlPrayerRow)
         PrayerTimeSlot.entries.zip(rows).forEach { (slot, row) ->
             row.root.isActivated = slot == current
-            row.time.text = slot.timeOf(times).orEmpty()
+            row.time.text = formatDisplayTime(context, slot.timeOf(times).orEmpty())
             row.status.isVisible = false
         }
     }
